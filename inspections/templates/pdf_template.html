@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>گزارش جایگاه سوخت</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; direction: rtl; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>گزارش جایگاه {{ station.name }}</h1>
+    <table>
+        <tr>
+            <th>آیتم</th>
+            <th>مقدار</th>
+        </tr>
+        <tr>
+            <td>مکانیکی بنزین</td>
+            <td>{{ gasoline_mechanical_sales }}</td>
+        </tr>
+        <tr>
+            <td>مکانیکی گاز</td>
+            <td>{{ gas_mechanical_sales }}</td>
+        </tr>
+        <tr>
+            <td>موجودی انتهای دوره بنزین</td>
+            <td>{{ gasoline_end_inventory }}</td>
+        </tr>
+        <tr>
+            <td>موجودی انتهای دوره گاز</td>
+            <td>{{ gas_end_inventory }}</td>
+        </tr>
+        <tr>
+            <td>کل موجودی بنزین</td>
+            <td>{{ total_gasoline_inventory }}</td>
+        </tr>
+        <tr>
+            <td>کل موجودی گاز</td>
+            <td>{{ total_gas_inventory }}</td>
+        </tr>
+        <tr>
+            <td>کل فرآورده خارج شده بنزین</td>
+            <td>{{ gasoline_outflow }}</td>
+        </tr>
+        <tr>
+            <td>کل فرآورده خارج شده گاز</td>
+            <td>{{ gas_outflow }}</td>
+        </tr>
+        <tr>
+            <td>بعد از فروش باید موجود باشد بنزین</td>
+            <td>{{ gasoline_after_sales }}</td>
+        </tr>
+        <tr>
+            <td>بعد از فروش باید موجود باشد گاز</td>
+            <td>{{ gas_after_sales }}</td>
+        </tr>
+        <tr>
+            <td>تفاوت موجودی و فروش بنزین</td>
+            <td>{{ gasoline_difference }} ({{ gasoline_status }})</td>
+        </tr>
+        <tr>
+            <td>تفاوت موجودی و فروش گاز</td>
+            <td>{{ gas_difference }} ({{ gas_status }})</td>
+        </tr>
+    </table>
+</body>
+</html>

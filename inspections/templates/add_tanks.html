@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>اضافه کردن مخازن برای {{ station.name }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <h3>مخازن بنزین</h3>
+        {% for i in ""|rjust:station.gasoline_tanks %}
+        <div class="form-group">
+            <label for="gasoline_tank_{{ forloop.counter0 }}">مقدار بنزین موجود در مخزن {{ forloop.counter }}</label>
+            <input type="number" step="0.01" class="form-control" id="gasoline_tank_{{ forloop.counter0 }}" name="gasoline_tank_{{ forloop.counter0 }}" required>
+        </div>
+        {% endfor %}
+        
+        <h3>مخازن گاز</h3>
+        {% for i in ""|rjust:station.gas_tanks %}
+        <div class="form-group">
+            <label for="gas_tank_{{ forloop.counter0 }}">مقدار گاز موجود در مخزن {{ forloop.counter }}</label>
+            <input type="number" step="0.01" class="form-control" id="gas_tank_{{ forloop.counter0 }}" name="gas_tank_{{ forloop.counter0 }}" required>
+        </div>
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-primary">ذخیره</button>
+    </form>
+</div>
+{% endblock %}

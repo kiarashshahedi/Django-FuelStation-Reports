@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>اضافه کردن نازل‌ها برای {{ station.name }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {% load extras %}
+
+    {% for i in station.gasoline_nozzles|times %}
+        <h3>نازل بنزین {{ i }}</h3>
+        <label for="gasoline_nozzle_start_totalizer_{{ i }}">توتالایزر ابتدای دوره:</label>
+        <input type="number" step="0.01" id="gasoline_nozzle_start_totalizer_{{ i }}" name="gasoline_nozzle_start_totalizer_{{ i }}" required><br>
+        <label for="gasoline_nozzle_end_totalizer_{{ i }}">توتالایزر انتهی دوره:</label>
+        <input type="number" step="0.01" id="gasoline_nozzle_end_totalizer_{{ i }}" name="gasoline_nozzle_end_totalizer_{{ i }}" required><br>
+    {% endfor %}
+
+    {% for i in station.gas_nozzles|times %}
+        <h3>نازل گاز {{ i }}</h3>
+        <label for="gas_nozzle_start_totalizer_{{ i }}">توتالایزر ابتدای دوره:</label>
+        <input type="number" step="0.01" id="gas_nozzle_start_totalizer_{{ i }}" name="gas_nozzle_start_totalizer_{{ i }}" required><br>
+        <label for="gas_nozzle_end_totalizer_{{ i }}">توتالایزر انتهی دوره:</label>
+        <input type="number" step="0.01" id="gas_nozzle_end_totalizer_{{ i }}" name="gas_nozzle_end_totalizer_{{ i }}" required><br>
+    {% endfor %}
+
+    <button type="submit">ذخیره</button>
+</form>
+{% endblock %}

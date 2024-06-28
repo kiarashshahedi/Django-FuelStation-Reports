@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>ایجاد جایگاه سوخت</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">اسم جایگاه سوخت</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="gasoline_tanks">تعداد مخازن بنزین</label>
+            <input type="number" class="form-control" id="gasoline_tanks" name="gasoline_tanks" required>
+        </div>
+        <div class="form-group">
+            <label for="gas_tanks">تعداد مخازن گاز</label>
+            <input type="number" class="form-control" id="gas_tanks" name="gas_tanks" required>
+        </div>
+
+
+        <div class="form-group">
+            <label for="gasoline_nozzles">تعداد نازل‌های بنزین</label>
+            <input type="number" class="form-control" id="gasoline_nozzles" name="gasoline_nozzles" required>
+        </div>
+        <div class="form-group">
+            <label for="gas_nozzles">تعداد نازل‌های گاز</label>
+            <input type="number" class="form-control" id="gas_nozzles" name="gas_nozzles" required>
+        </div>
+
+        <div class="form-group">
+            <label for="gasoline_beginning">مقدار ابتدای دوره بنزین</label>
+            <input type="number" step="0.01" class="form-control" id="gasoline_beginning" name="gasoline_beginning" required>
+        </div>
+        <div class="form-group">
+            <label for="gas_beginning">مقدار ابتدای دوره گاز</label>
+            <input type="number" step="0.01" class="form-control" id="gas_beginning" name="gas_beginning" required>
+        </div>
+        <div class="form-group">
+            <label for="gasoline_received">مقدار رسیده بنزین دوره</label>
+            <input type="number" step="0.01" class="form-control" id="gasoline_received" name="gasoline_received" required>
+        </div>
+        <div class="form-group">
+            <label for="gas_received">مقدار رسیده گاز دوره</label>
+            <input type="number" step="0.01" class="form-control" id="gas_received" name="gas_received" required>
+        </div>
+        <div class="form-group">
+            <label for="electronic_gasoline_sales">کل فروش الکترونیکی بنزین</label>
+            <input type="number" step="0.01" class="form-control" id="electronic_gasoline_sales" name="electronic_gasoline_sales" required>
+        </div>
+        <div class="form-group">
+            <label for="electronic_gas_sales">کل فروش الکترونیکی گاز</label>
+            <input type="number" step="0.01" class="form-control" id="electronic_gas_sales" name="electronic_gas_sales" required>
+        </div>
+        <div class="form-group">
+            <label for="start_date">تاریخ شروع دوره</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" required>
+        </div>
+        <div class="form-group">
+            <label for="end_date">تاریخ پایان دوره</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" required>
+        </div>
+        <button type="submit" class="btn btn-primary">ذخیره</button>
+    </form>
+</div>
+{% endblock %}

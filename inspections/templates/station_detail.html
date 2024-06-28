@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>جزئیات جایگاه {{ station.name }}</h2>
+    <p>مکانیکی بنزین: {{ gasoline_mechanical_sales }}</p>
+    <p>مکانیکی گاز: {{ gas_mechanical_sales }}</p>
+    <p>موجودی انتهای دوره بنزین: {{ gasoline_end_inventory }}</p>
+    <p>موجودی انتهای دوره گاز: {{ gas_end_inventory }}</p>
+    <p>کل موجودی بنزین: {{ total_gasoline_inventory }}</p>
+    <p>کل موجودی گاز: {{ total_gas_inventory }}</p>
+    <p>کل فرآورده خارج شده بنزین: {{ gasoline_outflow }}</p>
+    <p>کل فرآورده خارج شده گاز: {{ gas_outflow }}</p>
+    <p>بعد از فروش باید موجود باشد بنزین: {{ gasoline_after_sales }}</p>
+    <p>بعد از فروش باید موجود باشد گاز: {{ gas_after_sales }}</p>
+    <p>تفاوت موجودی و فروش بنزین: {{ gasoline_difference }} ({{ gasoline_status }})</p>
+    <p>تفاوت موجودی و فروش گاز: {{ gas_difference }} ({{ gas_status }})</p>
+    <a href="{% url 'render_pdf' station.id %}" class="btn btn-primary">دانلود PDF</a>
+</div>
+{% endblock %}
