@@ -8,7 +8,7 @@ SECRET_KEY = 'django-insecure-0($av-y$av&j3$8u*9*au*=+9!f&d3xq#m#y2@lew)^r(ezcwr
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['37.152.183.65', 'www.takkharidshop.ir']
+ALLOWED_HOSTS = ['37.152.183.65', 'www.takkharidshop.ir', 'takkharidshop.ir']
 
 
 
