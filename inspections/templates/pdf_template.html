@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+
 <head>
     <meta charset="UTF-8">
-    <title>گزارش جایگاه سوخت</title>
     <style>
-        body { font-family: 'Arial', sans-serif; direction: rtl; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        table, th, td { border: 1px solid black; }
-        th, td { padding: 10px; text-align: center; }
+        @font-face {
+            font-family: 'Vazir';
+            src: url('/static/fonts/vazir.ttf') format('vazir.ttf'),
+                 url('/static/fonts/vazir.ttf') format('woff'),
+                 url('/static/fonts/vazir.ttf') format('truetype');
+        }
+        body {
+            font-family: 'Vazir';
+            direction: rtl;  /* For right-to-left text direction */
+        }
     </style>
 </head>
-<body>
+{% block content %}
     <h1>گزارش جایگاه {{ station.name }}</h1>
     <table>
         <tr>
@@ -66,5 +71,4 @@
             <td>{{ gas_difference }} ({{ gas_status }})</td>
         </tr>
     </table>
-</body>
-</html>
+{% endblock %}

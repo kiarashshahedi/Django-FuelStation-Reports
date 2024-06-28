@@ -1,10 +1,14 @@
 # reports/views.py
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import FuelStation, Tank, Nozzle
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+
+
+def home(request):
+    return render(request, 'home.html')
 
 def create_station(request):
     if request.method == 'POST':
@@ -116,18 +120,114 @@ def station_detail(request, station_id):
 
     return render(request, 'station_detail.html', context)
 
-def render_pdf_view(request, station_id):
+def get_station_context(station_id):
     station = FuelStation.objects.get(id=station_id)
+    nozzles = Nozzle.objects.filter(station=station)
+    tanks = Tank.objects.filter(station=station)
+
+    gasoline_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gasoline')
+    gas_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gas')
+
+    gasoline_end_inventory = sum(t.amount for t in tanks if t.type == 'gasoline')
+    gas_end_inventory = sum(t.amount for t in tanks if t.type == 'gas')
+
+    total_gasoline_inventory = station.gasoline_beginning + station.gasoline_received
+    total_gas_inventory = station.gas_beginning + station.gas_received
+
+    gasoline_outflow = total_gasoline_inventory - gasoline_end_inventory
+    gas_outflow = total_gas_inventory - gas_end_inventory
+
+    gasoline_after_sales = total_gasoline_inventory - gasoline_mechanical_sales
+    gas_after_sales = total_gas_inventory - gas_mechanical_sales
+
+    gasoline_difference = gasoline_after_sales - gasoline_end_inventory
+    gas_difference = gas_after_sales - gas_end_inventory
+
+    gasoline_status = 'کسری' if gasoline_difference > 0 else 'سرک'
+    gas_status = 'کسری' if gas_difference > 0 else 'سرک'
+
+    context = {
+        'station': station,
+        'nozzles': nozzles,
+        'tanks': tanks,
+        'gasoline_mechanical_sales': gasoline_mechanical_sales,
+        'gas_mechanical_sales': gas_mechanical_sales,
+        'gasoline_end_inventory': gasoline_end_inventory,
+        'gas_end_inventory': gas_end_inventory,
+        'total_gasoline_inventory': total_gasoline_inventory,
+        'total_gas_inventory': total_gas_inventory,
+        'gasoline_outflow': gasoline_outflow,
+        'gas_outflow': gas_outflow,
+        'gasoline_after_sales': gasoline_after_sales,
+        'gas_after_sales': gas_after_sales,
+        'gasoline_difference': gasoline_difference,
+        'gas_difference': gas_difference,
+        'gasoline_status': gasoline_status,
+        'gas_status': gas_status,
+    }
+
+    return context
+
+def render_pdf_view(request, station_id):
+    context = get_station_context(station_id)  # Get the context directly from the helper function
+
     template_path = 'pdf_template.html'
-    context = station_detail(request, station_id).context_data
 
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 
     template = get_template(template_path)
-    html = template.render(context)
+    html = template.render(context)  # Render the template with the context
 
     pisa_status = pisa.CreatePDF(html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+def latest_data(request, station_id):
+    station = get_object_or_404(FuelStation, id=station_id)
+    nozzles = Nozzle.objects.filter(station=station)
+    tanks = Tank.objects.filter(station=station)
+
+    gasoline_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gasoline')
+    gas_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gas')
+
+    gasoline_end_inventory = sum(t.amount for t in tanks if t.type == 'gasoline')
+    gas_end_inventory = sum(t.amount for t in tanks if t.type == 'gas')
+
+    total_gasoline_inventory = station.gasoline_beginning + station.gasoline_received
+    total_gas_inventory = station.gas_beginning + station.gas_received
+
+    gasoline_outflow = total_gasoline_inventory - gasoline_end_inventory
+    gas_outflow = total_gas_inventory - gas_end_inventory
+
+    gasoline_after_sales = total_gasoline_inventory - gasoline_mechanical_sales
+    gas_after_sales = total_gas_inventory - gas_mechanical_sales
+
+    gasoline_difference = gasoline_after_sales - gasoline_end_inventory
+    gas_difference = gas_after_sales - gas_end_inventory
+
+    gasoline_status = 'کسری' if gasoline_difference > 0 else 'سرک'
+    gas_status = 'کسری' if gas_difference > 0 else 'سرک'
+
+    context = {
+        'station': station,
+        'nozzles': nozzles,
+        'tanks': tanks,
+        'gasoline_mechanical_sales': gasoline_mechanical_sales,
+        'gas_mechanical_sales': gas_mechanical_sales,
+        'gasoline_end_inventory': gasoline_end_inventory,
+        'gas_end_inventory': gas_end_inventory,
+        'total_gasoline_inventory': total_gasoline_inventory,
+        'total_gas_inventory': total_gas_inventory,
+        'gasoline_outflow': gasoline_outflow,
+        'gas_outflow': gas_outflow,
+        'gasoline_after_sales': gasoline_after_sales,
+        'gas_after_sales': gas_after_sales,
+        'gasoline_difference': gasoline_difference,
+        'gas_difference': gas_difference,
+        'gasoline_status': gasoline_status,
+        'gas_status': gas_status,
+    }
+
+    return render(request, 'latest_data.html', context)

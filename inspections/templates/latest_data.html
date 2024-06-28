@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+<head>
+    <meta charset="UTF-8">
+    <title>آخرین اطلاعات برای {{ station.name }}</title>
+    <style>
+        body {
+            direction: rtl;
+            font-family: 'Vazir', sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+{% block content %}
+
+    <h1>آخرین اطلاعات برای {{ station.name }}</h1>
+    <table>
+        <tr>
+            <th>نوع</th>
+            <th>مقدار</th>
+        </tr>
+        <tr>
+            <td>تعداد نازل‌های بنزین</td>
+            <td>{{ station.gasoline_nozzles }}</td>
+        </tr>
+        <tr>
+            <td>تعداد نازل‌های گاز</td>
+            <td>{{ station.gas_nozzles }}</td>
+        </tr>
+        <tr>
+            <td>میزان بنزین دریافتی</td>
+            <td>{{ station.gasoline_received }}</td>
+        </tr>
+        <tr>
+            <td>فروش مکانیکی بنزین</td>
+            <td>{{ gasoline_mechanical_sales }}</td>
+        </tr>
+        <tr>
+            <td>فروش مکانیکی گاز</td>
+            <td>{{ gas_mechanical_sales }}</td>
+        </tr>
+        <tr>
+            <td>موجودی پایانی بنزین</td>
+            <td>{{ gasoline_end_inventory }}</td>
+        </tr>
+        <tr>
+            <td>موجودی پایانی گاز</td>
+            <td>{{ gas_end_inventory }}</td>
+        </tr>
+        <tr>
+            <td>کل موجودی بنزین</td>
+            <td>{{ total_gasoline_inventory }}</td>
+        </tr>
+        <tr>
+            <td>کل موجودی گاز</td>
+            <td>{{ total_gas_inventory }}</td>
+        </tr>
+        <tr>
+            <td>خروجی بنزین</td>
+            <td>{{ gasoline_outflow }}</td>
+        </tr>
+        <tr>
+            <td>خروجی گاز</td>
+            <td>{{ gas_outflow }}</td>
+        </tr>
+        <tr>
+            <td>بعد از فروش بنزین</td>
+            <td>{{ gasoline_after_sales }}</td>
+        </tr>
+        <tr>
+            <td>بعد از فروش گاز</td>
+            <td>{{ gas_after_sales }}</td>
+        </tr>
+        <tr>
+            <td>اختلاف بنزین</td>
+            <td>{{ gasoline_difference }}</td>
+        </tr>
+        <tr>
+            <td>اختلاف گاز</td>
+            <td>{{ gas_difference }}</td>
+        </tr>
+        <tr>
+            <td>وضعیت بنزین</td>
+            <td>{{ gasoline_status }}</td>
+        </tr>
+        <tr>
+            <td>وضعیت گاز</td>
+            <td>{{ gas_status }}</td>
+        </tr>
+    </table>
+{% endblock %}
