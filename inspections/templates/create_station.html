@@ -4,72 +4,241 @@
 
 <style>
    
+   .button-container {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 5px 5px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            
+        }
+        .glasss{
+            
+            background: rgba(255, 255, 255, 0.2);
+                    border-radius: 15px;
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    border: 1px solid rgb(255, 255, 255);
+                    box-shadow: 0 4px 30px rgba(80, 80, 80, 0.1);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: #fff;
+                    text-align: center;
+                    padding: 20px;
+                    font-weight: bold
+        }
+        .btn-gas:hover {
+            transform: scale(1.1);
+        }
+       
+        .btn-petrol:hover {
+            transform: scale(1.1);
+        }
+       
+        .btn-both:hover {
+            transform: scale(1.1);
+        }
+         
+         .showGaz{
+            display: none;
+         }
 
+         .showFuel{
+            display: none;
+         }
+
+         .showAll{
+            display: none;
+         }
+         .showBase{
+            display: none;
+            
+         }
+         .gg{
+            display: block;
+         }
+         
       
 </style>
-
-<h5 class="text-start text-white mt-3 ms-2 ">ایجاد جایگاه سوخت:</h5>
+<p class="text-center text-white">لطفا یکی از گزینه های زیر انتخاب کنید</p>
+<div class="button-container">
+    <button onclick="showGas()" class="btn glasss btn-gas btn btn-outline-info w-100">گاز</button>
+    <button onclick="showPetrol()" class="btn glasss btn-petrol btn btn-outline-info w-100">بنزین</button>
+    <button onclick="showBoth()" class="btn glasss btn-both btn btn-outline-info w-100">هر دو</button>
+</div>
+<h5 class="text-start text-white mt-3 ms-2 showBase">ایجاد جایگاه سوخت:</h5>
 <div   class="container  mt-4 px-2">
     
     
     <form method="post">
         {% csrf_token %}
-        <div class="form-group field ">
+        <div  class="form-group text-start showBase  ">
             <input type="text" class="" id="name" name="name"  placeholder="اسم جایگاه سوخت" required>
-            <label class="form__label"  for="name">اسم جایگاه سوخت</label>
+            <label  class="" for="name">اسم جایگاه سوخت</label>
         </div>
 
-        <div class="form-group">
-            <input type="number" class="" id="gasoline_tanks" placeholder="تعداد مخازن بنزین" name="gasoline_tanks" required>
+        <div class="form-group showFuel showAll">
+            <input type="number" class="showFuel" id="gasoline_tanks" placeholder="تعداد مخازن بنزین" name="gasoline_tanks" required>
             <label for="gasoline_tanks">تعداد مخازن بنزین</label>
         </div>
-        <div class="form-group">
-            <input type="number" class="" id="gas_tanks" placeholder="تعداد مخازن گاز" name="gas_tanks" required>
+        <div class="form-group showGaz showAll">
+            <input type="number" class="showGaz" id="gas_tanks" placeholder="تعداد مخازن گاز" name="gas_tanks" required>
             <label for="gas_tanks">تعداد مخازن گاز</label>
         </div>
-        <div class="form-group">
-            <input type="number" class="" id="gasoline_nozzles" placeholder="تعداد نازل های بنزین " name="gasoline_nozzles" required>
+        <div class="form-group showFuel showAll">
+            <input type="number" class="showFuel" id="gasoline_nozzles" placeholder="تعداد نازل های بنزین " name="gasoline_nozzles" required>
             <label for="gasoline_nozzles">تعداد نازل‌های بنزین</label>
         </div>
-        <div class="form-group">
-            <input type="number" placeholder="تعداد نازل های گاز" id="gas_nozzles" name="gas_nozzles" required>
+        <div class="form-group showGaz showAll">
+            <input type="number" class="showGaz" placeholder="تعداد نازل های گاز" id="gas_nozzles" name="gas_nozzles" required>
             <label for="gas_nozzles">تعداد نازل‌های گاز</label>
         </div>
-        <div class="form-group">
-            <input type="number" step="0.01" placeholder="مقدار ابتدای دوره بنزین" id="gasoline_beginning" name="gasoline_beginning" required>
+        <div class="form-group showFuel showAll">
+            <input type="number" class="showFuel" step="0.01" placeholder="مقدار ابتدای دوره بنزین" id="gasoline_beginning" name="gasoline_beginning" required>
             <label for="gasoline_beginning">مقدار ابتدای دوره بنزین</label>
         </div>
-        <div class="form-group">
-            <input type="number" step="0.01" placeholder="مقدار ابتدای دوره گاز" id="gas_beginning" name="gas_beginning" required>
+        <div class="form-group showGaz ">
+            <input type="number" class="showGaz" step="0.01" placeholder="مقدار ابتدای دوره گاز" id="gas_beginning" name="gas_beginning" required>
             <label for="gas_beginning">مقدار ابتدای دوره گاز</label>
         </div>
-        <div class="form-group">
-            <input type="number" step="0.01" placeholder="مقدار رسید بنزین دوره" id="gasoline_received" name="gasoline_received" required>
+        <div class="form-group showFuel showAll">
+            <input type="number" class="showFuel" step="0.01" placeholder="مقدار رسید بنزین دوره" id="gasoline_received" name="gasoline_received" required>
             <label for="gasoline_received">مقدار رسیده بنزین دوره</label>
         </div>
-        <div class="form-group">
-            <input type="number" step="0.01" placeholder="مقدار رسید گاز دوره" id="gas_received" name="gas_received" required>
+        <div class="form-group showGaz showAll">
+            <input type="number" class="showGaz" step="0.01" placeholder="مقدار رسید گاز دوره" id="gas_received" name="gas_received" required>
             <label for="gas_received">مقدار رسیده گاز دوره</label>
         </div>
-        <div class="form-group">
-            <input type="number" step="0.01" placeholder="کل فروش الکترونیکی بنزین" id="electronic_gasoline_sales" name="electronic_gasoline_sales" required>
+        <div class="form-group showFuel showAll">
+            <input type="number" class="showFuel" step="0.01" placeholder="کل فروش الکترونیکی بنزین" id="electronic_gasoline_sales" name="electronic_gasoline_sales" required>
             <label for="electronic_gasoline_sales">کل فروش الکترونیکی بنزین</label>
         </div>
-        <div class="form-group">
-            <input type="number" step="0.01" placeholder="کل فروش الکترونیکی گاز" id="electronic_gas_sales" name="electronic_gas_sales" required>
+        <div class="form-group showGaz showAll">
+            <input type="number" class="showGaz" step="0.01" placeholder="کل فروش الکترونیکی گاز" id="electronic_gas_sales" name="electronic_gas_sales" required>
             <label for="electronic_gas_sales">کل فروش الکترونیکی گاز</label>
         </div>
-        <div class="form-group">
+        <div class="form-group showBase ">
             <input type="date" placeholder="تاریخ شروع دوره" id="start_date" name="start_date" required>
             <label for="start_date">تاریخ شروع دوره</label>
         </div>
-        <div class="form-group">
+        <div class="form-group showBase ">
             <input type="date" placeholder="تاریخ پایان دوره" id="end_date" name="end_date" required>
             <label for="end_date">تاریخ پایان دوره</label>
         </div>
-        <button type="submit" class="btn btn-light w-100 mt-4 mb-4">ذخیره</button>
+        <button type="submit" class="btn btn-light w-100 mt-4 mb-4 showBase text-black">ذخیره</button>
     </form>
 </div>
 
+<script>
+        let BASE = document.querySelectorAll('.showBase');
 
+        function showGas() {
+            let gasElements = document.querySelectorAll('.showGaz');
+            let fuelElements = document.querySelectorAll('.showFuel');
+            
+            gasElements.forEach(element => {
+                element.style.display = 'block';
+                if (element.tagName === 'INPUT') {
+                    element.value = '';
+                }
+            });
+            BASE.forEach(element => {
+                element.classList.remove('showBase');
+                element.classList.add('gg')
+            });
+            
+            BASE.forEach(element => {
+                element.classList.remove('showBase');
+                element.classList.add('gg')
+
+            });
+            fuelElements.forEach(element => {
+                element.style.display = 'none';
+                if (element.tagName === 'INPUT') {
+                    element.value = '0';
+                }
+            });
+        }
+
+        function showPetrol() {
+            let gasElements = document.querySelectorAll('.showGaz');
+            let fuelElements = document.querySelectorAll('.showFuel');
+            
+            gasElements.forEach(element => {
+                element.style.display = 'none';
+                if (element.tagName === 'INPUT') {
+                    element.value = '0';
+                }
+            });
+            BASE.forEach(element => {
+                element.classList.remove('showBase');
+                element.classList.add('gg')
+
+            });
+            
+            BASE.forEach(element => {
+                element.classList.remove('showBase');
+                element.classList.add('gg')
+
+            });
+            fuelElements.forEach(element => {
+                element.style.display = 'block';
+                if (element.tagName === 'INPUT') {
+                    element.value = '';
+                }
+            });
+        }
+
+        function showBoth() {
+            let gasElements = document.querySelectorAll('.showGaz');
+            let fuelElements = document.querySelectorAll('.showFuel');
+            
+           
+
+            gasElements.forEach(element => {
+                element.style.display = 'none';
+                if (element.tagName === 'INPUT') {
+                    element.value = '0';
+                }
+            });fuelElements.forEach(element => {
+                element.style.display = 'none';
+                if (element.tagName === 'INPUT') {
+                    element.value = '0';
+                }
+            });
+            BASE.forEach(element => {
+                element.classList.remove('showBase');
+                element.classList.add('gg')
+
+            });
+            
+            BASE.forEach(element => {
+                element.classList.remove('showBase');
+                element.classList.add('gg')
+
+            });
+          
+            
+            gasElements.forEach(element => {
+                element.style.display = 'block';
+                if (element.tagName === 'INPUT') {
+                    element.value = '';
+                }
+            });
+
+            fuelElements.forEach(element => {
+                element.style.display = 'block';
+                if (element.tagName === 'INPUT') {
+                    element.value = '';
+                }
+            });
+        }
+</script>
 {% endblock %}

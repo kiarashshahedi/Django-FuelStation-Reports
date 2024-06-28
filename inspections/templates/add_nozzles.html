@@ -9,11 +9,11 @@
     {% for i in station.gasoline_nozzles|times %}
         <h3 class="text-white mt-4">نازل بنزین {{ i }}</h3>
         <div class="form-group">
-        <input type="number" step="0.01" id="gasoline_nozzle_start_totalizer_{{ i }}" name="gasoline_nozzle_start_totalizer_{{ i }}" required><br>
+        <input type="number" step="0.01" id="gasoline_nozzle_start_totalizer_{{ i }}" placeholder="توتالایزر ابتدای دوره" name="gasoline_nozzle_start_totalizer_{{ i }}" required><br>
         <label for="gasoline_nozzle_start_totalizer_{{ i }}">توتالایزر ابتدای دوره:</label>
     </div>
     <div class="form-group">
-        <input type="number" step="0.01" id="gasoline_nozzle_end_totalizer_{{ i }}" name="gasoline_nozzle_end_totalizer_{{ i }}" required><br>
+        <input type="number" step="0.01" id="gasoline_nozzle_end_totalizer_{{ i }}" placeholder="توتالایزر انتهی دوره" name="gasoline_nozzle_end_totalizer_{{ i }}" required><br>
         <label for="gasoline_nozzle_end_totalizer_{{ i }}">توتالایزر انتهی دوره:</label>
     </div>
         {% endfor %}
