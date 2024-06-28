@@ -7,20 +7,20 @@
         <h3>مخازن بنزین</h3>
         {% for i in ""|rjust:station.gasoline_tanks %}
         <div class="form-group">
+            <input type="number" step="0.01" class="" id="gasoline_tank_{{ forloop.counter0 }}" placeholder="مقدار بنزین موجود در مخزن {{ forloop.counter }}" name="gasoline_tank_{{ forloop.counter0 }}" required>
             <label for="gasoline_tank_{{ forloop.counter0 }}">مقدار بنزین موجود در مخزن {{ forloop.counter }}</label>
-            <input type="number" step="0.01" class="form-control" id="gasoline_tank_{{ forloop.counter0 }}" name="gasoline_tank_{{ forloop.counter0 }}" required>
         </div>
         {% endfor %}
         
         <h3>مخازن گاز</h3>
         {% for i in ""|rjust:station.gas_tanks %}
         <div class="form-group">
+            <input type="number" step="0.01" class="" id="gas_tank_{{ forloop.counter0 }}" name="gas_tank_{{ forloop.counter0 }}" placeholder=">مقدار گاز موجود در مخزن {{ forloop.counter }}" required>
             <label for="gas_tank_{{ forloop.counter0 }}">مقدار گاز موجود در مخزن {{ forloop.counter }}</label>
-            <input type="number" step="0.01" class="form-control" id="gas_tank_{{ forloop.counter0 }}" name="gas_tank_{{ forloop.counter0 }}" required>
         </div>
         {% endfor %}
         
-        <button type="submit" class="btn btn-primary">ذخیره</button>
+        <button type="submit" class="btn btn-outline-light w-100">ذخیره</button>
     </form>
 </div>
 {% endblock %}

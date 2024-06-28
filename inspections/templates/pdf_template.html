@@ -5,13 +5,26 @@
     <style>
         @font-face {
             font-family: 'Vazir';
-            src: url('/static/fonts/vazir.ttf') format('vazir.ttf'),
-                 url('/static/fonts/vazir.ttf') format('woff'),
-                 url('/static/fonts/vazir.ttf') format('truetype');
+            src: url(data:font/truetype;charset=utf-8;base64,<encoded_string>) format('truetype');
         }
+
         body {
-            font-family: 'Vazir';
-            direction: rtl;  /* For right-to-left text direction */
+            font-family: 'Vazir', sans-serif;
+            direction: rtl;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: right;
         }
     </style>
 </head>

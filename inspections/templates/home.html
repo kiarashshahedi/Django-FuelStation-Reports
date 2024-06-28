@@ -1,25 +1,36 @@
 {% extends "base.html" %}
-{% load static %}
-
-
-
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-light bg-warning">
-    <a class="navbar-brand" href="{% url 'home' %}">
-        <img src="{% static 'img/white-logo.png' %}" width="600" height="100" class="d-inline-block align-top" alt="">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            
-        </ul>
-    </div>
-</nav>
+<style>
+     h3 {
+          opacity: 0;
+          transform: translateY(-20px);
+          color: white;
+          animation: fadeInMove 3s forwards;
+      }
+      @keyframes fadeInMove {
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+      .img-fluid{
+        filter: sepia(1) saturate(10000%) hue-rotate(180deg);
+          filter: brightness(0) invert(1);
+      }
+</style>
 <div class="text-center">
-        <button class="btn btn-success list-group-item  border border-3 shadow shadow-4 text-black"><a href="{% url 'create_station' %}">  جدید +  </a></button>
+
+    <img class="img-fluid w-75" src="https://www.nigc-zanjan.ir/content/adminlogo.png" alt="">
 </div>
+<h3 class="text-center">
+  برنامه بازرسی جایگان سوخت 
+  <span>GsPMC</span>
+</h3>
+<a href="{% url 'create_station'%}">
+<button class="btn btn-outline-light w-100">
+
+    ایجاد فایل جدید
+</button>
+</a>
 {% endblock %}

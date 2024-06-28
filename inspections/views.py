@@ -5,7 +5,8 @@ from django.http import HttpResponse
 from .models import FuelStation, Tank, Nozzle
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-
+from django.conf import settings
+import os
 
 def home(request):
     return render(request, 'home.html')
@@ -168,8 +169,9 @@ def get_station_context(station_id):
 
     return context
 
+
 def render_pdf_view(request, station_id):
-    context = get_station_context(station_id)  # Get the context directly from the helper function
+    context = get_station_context(station_id)  # گرفتن کانتکست مستقیماً از تابع کمکی
 
     template_path = 'pdf_template.html'
 
@@ -177,7 +179,7 @@ def render_pdf_view(request, station_id):
     response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 
     template = get_template(template_path)
-    html = template.render(context)  # Render the template with the context
+    html = template.render(context)  # رندر قالب با کانتکست
 
     pisa_status = pisa.CreatePDF(html, dest=response)
     if pisa_status.err:
