@@ -1,19 +1,78 @@
 {% extends "base.html" %}
 {% block content %}
+<style>
+    .text-white {
+    color: white !important;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05); /* Adjust the transparency as needed */
+}
+
+</style>
 <div class="container mt-4">
-    <h2>جزئیات جایگاه {{ station.name }}</h2>
-    <p>مکانیکی بنزین: {{ gasoline_mechanical_sales }}</p>
-    <p>مکانیکی گاز: {{ gas_mechanical_sales }}</p>
-    <p>موجودی انتهای دوره بنزین: {{ gasoline_end_inventory }}</p>
-    <p>موجودی انتهای دوره گاز: {{ gas_end_inventory }}</p>
-    <p>کل موجودی بنزین: {{ total_gasoline_inventory }}</p>
-    <p>کل موجودی گاز: {{ total_gas_inventory }}</p>
-    <p>کل فرآورده خارج شده بنزین: {{ gasoline_outflow }}</p>
-    <p>کل فرآورده خارج شده گاز: {{ gas_outflow }}</p>
-    <p>بعد از فروش باید موجود باشد بنزین: {{ gasoline_after_sales }}</p>
-    <p>بعد از فروش باید موجود باشد گاز: {{ gas_after_sales }}</p>
-    <p>تفاوت موجودی و فروش بنزین: {{ gasoline_difference }} ({{ gasoline_status }})</p>
-    <p>تفاوت موجودی و فروش گاز: {{ gas_difference }} ({{ gas_status }})</p>
+    <h2 class="text-white">جزئیات جایگاه {{ station.name }}</h2>
+    <table class="table table-bordered table-striped text-white">
+        <tbody>
+            <tr>
+                <th>مکانیکی بنزین</th>
+                <td>{{ gasoline_mechanical_sales }}</td>
+            </tr>
+            <tr>
+                <th>مکانیکی گاز</th>
+                <td>{{ gas_mechanical_sales }}</td>
+            </tr>
+            <tr>
+                <th>موجودی انتهای دوره بنزین</th>
+                <td>{{ gasoline_end_inventory }}</td>
+            </tr>
+            <tr>
+                <th>موجودی انتهای دوره گاز</th>
+                <td>{{ gas_end_inventory }}</td>
+            </tr>
+            <tr>
+                <th>کل موجودی بنزین</th>
+                <td>{{ total_gasoline_inventory }}</td>
+            </tr>
+            <tr>
+                <th>کل موجودی گاز</th>
+                <td>{{ total_gas_inventory }}</td>
+            </tr>
+            <tr>
+                <th>کل فرآورده خارج شده بنزین</th>
+                <td>{{ gasoline_outflow }}</td>
+            </tr>
+            <tr>
+                <th>کل فرآورده خارج شده گاز</th>
+                <td>{{ gas_outflow }}</td>
+            </tr>
+            <tr>
+                <th>بعد از فروش باید موجود باشد بنزین</th>
+                <td>{{ gasoline_after_sales }}</td>
+            </tr>
+            <tr>
+                <th>بعد از فروش باید موجود باشد گاز</th>
+                <td>{{ gas_after_sales }}</td>
+            </tr>
+            <tr>
+                <th>تفاوت موجودی و فروش بنزین</th>
+                <td>{{ gasoline_difference }} ({{ gasoline_status }})</td>
+            </tr>
+            <tr>
+                <th>تفاوت موجودی و فروش گاز</th>
+                <td>{{ gas_difference }} ({{ gas_status }})</td>
+            </tr>
+        </tbody>
+    </table>
     <a href="{% url 'render_pdf' station.id %}" class="btn btn-primary">دانلود PDF</a>
 </div>
 {% endblock %}

@@ -1,3 +1,5 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="fa-IR" dir="rtl">
 <head>
@@ -17,18 +19,11 @@
             font-family: "Vazir";
             src: url(http://rastikerdar.github.io/vazirmatn/);
         }
-        .fixed-bottom-options {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #1300c2;
-            padding: 2px;
-        }
+       
         .form-group {
           position: relative;
-          padding: 12px 7px ;
-          margin-top: 10px;
+          padding: 15px 10px ;
+          margin-top: 18px;
           width: 100%;
           background: rgba(255, 255, 255, 0.2);
                     border-radius: 15px;
@@ -124,7 +119,11 @@
 </head>
 <body>
 
-
+  <div class="border-bottom " >
+    <a class="navbar-brand " href="{% url 'home' %}">
+        <img src="{% static 'img/white-logo.png' %}"  class="img-fluid" alt="">
+    </a>
+  </div> 
     <div class="container mt-4">
         {% block content %}
         {% endblock %}
