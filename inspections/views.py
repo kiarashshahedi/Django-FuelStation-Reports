@@ -98,6 +98,14 @@ def station_detail(request, station_id):
 
     gasoline_status = 'کسری' if gasoline_difference > gasoline_end_inventory else 'سرک'
     gas_status = 'کسری' if gas_difference > gas_end_inventory else 'سرک'
+    
+    qire_mojaz = gasoline_mechanical_sales * 0.0045 - gasoline_difference
+    electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
+    electronic_mechanical_discrepancy_gas = station.electronic_gas_sales - gas_mechanical_sales
+
+    # Debugging: print the values
+    print(f"qire_mojaz: {qire_mojaz}")
+    print(f"electronic_mechanical_discrepancy: {electronic_mechanical_discrepancy}")
 
     context = {
         'station': station,
@@ -117,6 +125,10 @@ def station_detail(request, station_id):
         'gas_difference': gas_difference,
         'gasoline_status': gasoline_status,
         'gas_status': gas_status,
+        'qire_mojaz': qire_mojaz,
+        'electronic_mechanical_discrepancy': electronic_mechanical_discrepancy,
+        'electronic_mechanical_discrepancy_gas': electronic_mechanical_discrepancy_gas
+        
     }
 
     return render(request, 'station_detail.html', context)
@@ -147,6 +159,10 @@ def get_station_context(station_id):
     gasoline_status = 'کسری' if gasoline_difference > 0 else 'سرک'
     gas_status = 'کسری' if gas_difference > 0 else 'سرک'
 
+    qire_mojaz = gasoline_mechanical_sales * 0.0045 - gasoline_difference
+    electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
+
+    
     context = {
         'station': station,
         'nozzles': nozzles,
@@ -165,6 +181,9 @@ def get_station_context(station_id):
         'gas_difference': gas_difference,
         'gasoline_status': gasoline_status,
         'gas_status': gas_status,
+        'qire_mojaz' : qire_mojaz,
+        'electronic_mechanical_discrepancy': electronic_mechanical_discrepancy
+
     }
 
     return context
@@ -211,7 +230,14 @@ def latest_data(request, station_id):
 
     gasoline_status = 'کسری' if gasoline_difference > 0 else 'سرک'
     gas_status = 'کسری' if gas_difference > 0 else 'سرک'
+    
+    qire_mojaz = gasoline_mechanical_sales * 0.0045 - gasoline_difference
+    electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
 
+    # Debugging: print the values
+    print(f"qire_mojaz: {qire_mojaz}")
+    print(f"electronic_mechanical_discrepancy: {electronic_mechanical_discrepancy}") 
+    
     context = {
         'station': station,
         'nozzles': nozzles,
@@ -230,6 +256,8 @@ def latest_data(request, station_id):
         'gas_difference': gas_difference,
         'gasoline_status': gasoline_status,
         'gas_status': gas_status,
+        'qire_mojaz' : qire_mojaz,
+        'electronic_mechanical_discrepancy': electronic_mechanical_discrepancy
     }
 
     return render(request, 'latest_data.html', context)
