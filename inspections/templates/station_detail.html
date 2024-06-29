@@ -27,7 +27,8 @@
 
 </style>
 <div class="container-fluid mt-4 ">
-    <div class="border border-1 p-1">
+    <div class="row">
+    <div class="col-12 border border-1 p-1">
         <div class="d-flex justify-content-between">
 
             <div>
@@ -180,5 +181,6 @@
     </div>
 
     <a href="{% url 'render_pdf' station.id %}" class="btn btn-success mt-3 mb-3">دانلود PDF</a>
+</div>
 </div>
 {% endblock %}

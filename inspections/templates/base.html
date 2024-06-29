@@ -114,17 +114,31 @@
                         background-position: 0% 50%;
                     }
                 }
+                .Font{
+                  font-family: "ServerName";
+                }
+                
+                .KIANOOBS{
+                  filter: sepia(1) saturate(10000%) hue-rotate(180deg);
+                  filter: brightness(0) invert(1);
         
+              }
+              @font-face {
+                font-family: "ServerName";
+                src: url('/static/fonts/Mitra.ttf') format('truetype');
+    
+            }
         </style>
 </head>
 <body>
 
-  <div class="border-bottom " >
-    <a class="navbar-brand d-flex " href="{% url 'home' %}">
-        <img  src="https://www.nigc-zanjan.ir/content/adminlogo.png" width="75px"  class="img-fluid KIANOOBS" alt="">
-        <h3 class="text-white fw-bold pt-4 mt-2 ms-3 Font">شرکت ملی بخش فرآورده های نفتی ایران</h3>
+  <div class="border-bottom text-center " >
+    <a class="navbar-brand d-flex justify-content-center " href="{% url 'home' %}">
+        <img  src="https://www.nigc-zanjan.ir/content/adminlogo.png" width="50px"  class="img-fluid KIANOOBS " alt="">
+        <h6 class="text-white fw-bold mt-3 Font">شرکت ملی بخش فرآورده های نفتی ایران</h6>
     </a>
   </div> 
+
     <div class="container mt-4">
         {% block content %}
         {% endblock %}
