@@ -28,7 +28,7 @@
                 <td>{{ gasoline_mechanical_sales }}</td>
             </tr>
             <tr>
-                <th>مکانیکی گازويیل</th>
+                <th>مکانیکی نفتگاز</th>
                 <td>{{ gas_mechanical_sales }}</td>
             </tr>
             <tr>
@@ -36,7 +36,7 @@
                 <td>{{ gasoline_end_inventory }}</td>
             </tr>
             <tr>
-                <th>موجودی انتهای دوره گازويیل</th>
+                <th>موجودی انتهای دوره نفتگاز</th>
                 <td>{{ gas_end_inventory }}</td>
             </tr>
             <tr>
@@ -44,7 +44,7 @@
                 <td>{{ total_gasoline_inventory }}</td>
             </tr>
             <tr>
-                <th>کل موجودی گازويیل</th>
+                <th>کل موجودی نفتگاز</th>
                 <td>{{ total_gas_inventory }}</td>
             </tr>
             <tr>
@@ -52,7 +52,7 @@
                 <td>{{ gasoline_outflow }}</td>
             </tr>
             <tr>
-                <th>کل فرآورده خارج شده گازويیل</th>
+                <th>کل فرآورده خارج شده نفتگاز</th>
                 <td>{{ gas_outflow }}</td>
             </tr>
             <tr>
@@ -60,7 +60,7 @@
                 <td>{{ gasoline_after_sales }}</td>
             </tr>
             <tr>
-                <th>بعد از فروش باید موجود باشد گازويیل</th>
+                <th>بعد از فروش باید موجود باشد نفتگاز</th>
                 <td>{{ gas_after_sales }}</td>
             </tr>
             <tr>
@@ -68,7 +68,7 @@
                 <td>{{ gasoline_difference }} ({{ gasoline_status }})</td>
             </tr>
             <tr>
-                <th>تفاوت موجودی و فروش گازويیل</th>
+                <th>تفاوت موجودی و فروش نفتگاز</th>
                 <td>{{ gas_difference }} ({{ gas_status }})</td>
             </tr>
         </tbody>
