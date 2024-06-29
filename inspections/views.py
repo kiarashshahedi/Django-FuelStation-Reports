@@ -61,6 +61,7 @@ def add_tanks(request, station_id):
 
 def add_nozzles(request, station_id):
     station = FuelStation.objects.get(id=station_id)
+        
     if request.method == 'POST':
         for i in range(station.gasoline_nozzles):
             start_totalizer = float(request.POST.get(f'gasoline_nozzle_start_totalizer_{i}'))
@@ -127,7 +128,7 @@ def station_detail(request, station_id):
         'gas_status': gas_status,
         'qire_mojaz': qire_mojaz,
         'electronic_mechanical_discrepancy': electronic_mechanical_discrepancy,
-        'electronic_mechanical_discrepancy_gas': electronic_mechanical_discrepancy_gas
+        'electronic_mechanical_discrepancy_gas': electronic_mechanical_discrepancy_gas,
         
     }
 
@@ -161,6 +162,7 @@ def get_station_context(station_id):
 
     qire_mojaz = gasoline_mechanical_sales * 0.0045 - gasoline_difference
     electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
+    electronic_mechanical_discrepancy_gas = station.electronic_gas_sales - gas_mechanical_sales
 
     
     context = {
@@ -182,12 +184,12 @@ def get_station_context(station_id):
         'gasoline_status': gasoline_status,
         'gas_status': gas_status,
         'qire_mojaz' : qire_mojaz,
-        'electronic_mechanical_discrepancy': electronic_mechanical_discrepancy
+        'electronic_mechanical_discrepancy': electronic_mechanical_discrepancy,
+        'electronic_mechanical_discrepancy_gas': electronic_mechanical_discrepancy_gas
 
     }
 
     return context
-
 
 def render_pdf_view(request, station_id):
     context = get_station_context(station_id)  # گرفتن کانتکست مستقیماً از تابع کمکی
@@ -234,9 +236,9 @@ def latest_data(request, station_id):
     qire_mojaz = gasoline_mechanical_sales * 0.0045 - gasoline_difference
     electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
 
-    # Debugging: print the values
-    print(f"qire_mojaz: {qire_mojaz}")
-    print(f"electronic_mechanical_discrepancy: {electronic_mechanical_discrepancy}") 
+    qire_mojaz = gasoline_mechanical_sales * 0.0045 - gasoline_difference
+    electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
+    electronic_mechanical_discrepancy_gas = station.electronic_gas_sales - gas_mechanical_sales
     
     context = {
         'station': station,
@@ -257,7 +259,8 @@ def latest_data(request, station_id):
         'gasoline_status': gasoline_status,
         'gas_status': gas_status,
         'qire_mojaz' : qire_mojaz,
-        'electronic_mechanical_discrepancy': electronic_mechanical_discrepancy
+        'electronic_mechanical_discrepancy': electronic_mechanical_discrepancy,
+        'electronic_mechanical_discrepancy_gas': electronic_mechanical_discrepancy_gas
     }
 
     return render(request, 'latest_data.html', context)
