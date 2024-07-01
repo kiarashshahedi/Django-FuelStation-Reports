@@ -111,19 +111,21 @@
         <div class="page " id="page3">
 
             <h4 class="text-center text-white">دوره کنترل را وارد کنید</h4>
-            <div class="form-group showBase ">
-                <input type="date" placeholder="تاریخ شروع دوره" id="start_date" name="start_date" required>
+            <div class="form-group showBase">
+                <input type="text" placeholder="تاریخ شروع دوره" id="start_date" name="start_date" class="" required>
                 <label for="start_date">تاریخ شروع دوره</label>
             </div>
-
-            <div class="form-group showBase ">
-                <input type="date" placeholder="تاریخ پایان دوره" id="end_date" name="end_date" required>
+    
+            <div class="form-group showBase">
+                <input type="text" placeholder="تاریخ پایان دوره" id="end_date" name="end_date" class="" required>
                 <label for="end_date">تاریخ پایان دوره</label>
             </div>
 
         </div>
 
         <div class="page " id="page5">
+
+            <h5 class="text-start text-danger mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
             <div class="form-group showFuel showAll">
 
                 <input type="number" class="showFuel" id="gasoline_tanks" placeholder="تعداد مخازن بنزین" name="gasoline_tanks" required>
@@ -137,6 +139,8 @@
                 <label for="gasoline_nozzles">تعداد نازل‌های بنزین</label>
 
             </div>
+
+            <h5 class="text-start text-warning mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
 
             <div class="form-group showGaz showAll">
 
@@ -155,6 +159,8 @@
         </div>
 
         <div class="page " id="page6">
+            <h5 class="text-start text-danger mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
+
             <div class="form-group showFuel showAll">
 
                 <input type="number" class="showFuel" step="0.01" placeholder="مقدار ابتدای دوره بنزین" id="gasoline_beginning" name="gasoline_beginning" required>
@@ -174,8 +180,10 @@
             </div>
             <hr>
 
-            <div class="form-group showGaz ">
+            <h5 class="text-start text-warning mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
 
+            <div class="form-group showGaz ">
+                
                 <input type="number" class="showGaz" step="0.01" placeholder="مقدار ابتدای دوره نفتگاز" id="gas_beginning" name="gas_beginning" required>
                 <label for="gas_beginning">مقدار ابتدای دوره نفتگاز</label>
 
@@ -211,12 +219,13 @@
 
         <div class="page" id="page9">
             <div>
-
+                <h5 class="text-start text-danger mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
                 <div class="form-group showFuel showAll">
                     <input type="number" class="showFuel" step="0.01" placeholder="کل فروش الکترونیکی بنزین" id="electronic_gasoline_sales" name="electronic_gasoline_sales" required>
                     <label for="electronic_gasoline_sales">کل فروش الکترونیکی بنزین</label>
                 </div>
 
+                <h5 class="text-start text-warning mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
                 <div class="form-group showGaz showAll">
                     <input type="number" class="showGaz" step="0.01" placeholder="کل فروش الکترونیکی نفتگاز" id="electronic_gas_sales" name="electronic_gas_sales" required>
                     <label for="electronic_gas_sales">کل فروش الکترونیکی نفتگاز</label>
@@ -254,7 +263,7 @@
                     </span>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -464,8 +473,10 @@ document.getElementById('gasoline_nozzles').addEventListener('change', function(
     for (var i = 1; i <= nozzleCount; i++) {
         container.innerHTML += `
             <div class="form-group">
+            
                 <input type="number" step="0.01" id="gasoline_nozzle_${i}" name="gasoline_nozzle_${i}" placeholder="مقدار نازل بنزین ${i} " required>
                 <label for="gasoline_nozzle_${i}">مقدار نازل بنزین  ${i} </label>
+
             </div>
         `;
     }
@@ -491,7 +502,7 @@ document.getElementById('gasoline_nozzles').addEventListener('change', function(
     container.innerHTML = '';
     for (var i = 0; i < nozzleCount; i++) {
         container.innerHTML += `
-    <h5 class="text-start text-white mt-3 ms-2 ">بنزین</h5>
+    <h5 class="text-start text-danger mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
 
             <div class="form-group">
                 <input type="number" step="0.01" id="gasoline_nozzle_start_totalizer_${i}" name="gasoline_nozzle_start_totalizer_${i}" placeholder="مقدار توتالیزو ابتدا دوره نازل بنزین شماره " class="" required>
@@ -511,7 +522,7 @@ document.getElementById('gas_nozzles').addEventListener('change', function() {
     container.innerHTML = '';
     for (var i = 0; i < nozzleCount; i++) {
         container.innerHTML += `
-    <h5 class="text-start text-white mt-3 ms-2 ">نفتگاز</h5>
+    <h5 class="text-start text-warning mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
             
             <div class="form-group">
                 <input type="number" step="0.01" id="gas_nozzle_start_totalizer_${i}" name="gas_nozzle_start_totalizer_${i}" placeholder="مقدار توتالیزو ابتدا دوره نازل نفتگاز شماره " class="" required>

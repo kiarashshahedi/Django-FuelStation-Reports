@@ -1,4 +1,6 @@
 from django.db import models
+import django_jalali.db.models as jmodels
+
 
 class FuelStation(models.Model):
     name = models.CharField(max_length=200)
@@ -18,8 +20,10 @@ class FuelStation(models.Model):
     electronic_gasoline_sales = models.FloatField()
     electronic_gas_sales = models.FloatField()
     
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = jmodels.jDateField()
+    end_date = jmodels.jDateField()
+    
+    controller = models.TextField()
 
     def __str__(self):
         return self.name

@@ -26,6 +26,7 @@ def create_station(request):
         electronic_gas_sales = float(request.POST.get('electronic_gas_sales', 0))
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
+        controller = request.POST.get('controller')
 
         with transaction.atomic():
             station = FuelStation.objects.create(
@@ -41,7 +42,8 @@ def create_station(request):
                 electronic_gasoline_sales=electronic_gasoline_sales,
                 electronic_gas_sales=electronic_gas_sales,
                 start_date=start_date,
-                end_date=end_date
+                end_date=end_date,
+                controller=controller
             )
 
             for i in range(gasoline_tanks):
