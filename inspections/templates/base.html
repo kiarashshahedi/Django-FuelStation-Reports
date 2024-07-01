@@ -15,9 +15,16 @@
       a{
         text-decoration: none;
       }
+
+      @font-face {
+            font-family: "ServerName";
+            src: url('/static/fonts/Mitra.ttf') format('truetype');
+
+        }
         @font-face {
             font-family: "Vazir";
             src: url(http://rastikerdar.github.io/vazirmatn/);
+            
         }
        
         .form-group {
@@ -46,7 +53,7 @@
           border: 0;
           border-bottom: 2px solid #252525;
           outline: 0;
-          font-size: 1.1rem;
+          font-size: 0.9rem;
           color: #d6d6d6;
           padding: 7px 0;
           background: transparent;
@@ -57,7 +64,7 @@
           }
         
           &:placeholder-shown ~ label {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             cursor: text;
             top: 20px;
           }
@@ -68,7 +75,7 @@
           top: 0;
           display: block;
           transition: 0.2s;
-          font-size: 1rem;
+          font-size: 0.7rem;
           color: #fdfdfd;
         }
         
@@ -78,7 +85,7 @@
             top: 0;
             display: block;
             transition: 0.2s;
-            font-size: 1rem;
+            font-size: 0.7rem;
             color: #38ef7d;
             font-weight:700;    
           }
@@ -102,7 +109,9 @@
                     animation: gradientAnimation 3s ease infinite;
         
         }
-        
+        .Font{
+          font-family: "ServerName";
+        }
         @keyframes gradientAnimation {
                     0% {
                         background-position: 0% 50%;
@@ -114,31 +123,21 @@
                         background-position: 0% 50%;
                     }
                 }
-                .Font{
-                  font-family: "ServerName";
-                }
-                
                 .KIANOOBS{
-                  filter: sepia(1) saturate(10000%) hue-rotate(180deg);
-                  filter: brightness(0) invert(1);
-        
-              }
-              @font-face {
-                font-family: "ServerName";
-                src: url('/static/fonts/Mitra.ttf') format('truetype');
-    
-            }
+        filter: sepia(1) saturate(10000%) hue-rotate(180deg);
+          filter: brightness(0) invert(1);
+
+      }
         </style>
 </head>
 <body>
 
-  <div class="border-bottom text-center " >
-    <a class="navbar-brand d-flex justify-content-center " href="{% url 'home' %}">
-        <img  src="https://www.nigc-zanjan.ir/content/adminlogo.png" width="50px"  class="img-fluid KIANOOBS " alt="">
-        <h6 class="text-white fw-bold mt-3 Font">شرکت ملی بخش فرآورده های نفتی ایران</h6>
+  <div class="border-bottom " >
+    <a class="navbar-brand d-flex " href="{% url 'home' %}">
+        <img  src="https://www.nigc-zanjan.ir/content/adminlogo.png" width="100px"  class="img-fluid KIANOOBS" alt="">
+        <h5 class="text-white fw-bold pt-4 mt-2 Font">شرکت ملی بخش فرآورده های نفتی </h4>
     </a>
   </div> 
-
     <div class="container mt-4">
         {% block content %}
         {% endblock %}
