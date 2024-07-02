@@ -11,126 +11,122 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
 
     <style>
-        a {
-            text-decoration: none;
-        }
-
-        @font-face {
+a{
+  text-decoration: none;
+}
+  @font-face {
+      font-family: "Vazir";
+      src: url(http://rastikerdar.github.io/vazirmatn/);
+  }
+  
+  .form-group {
+    position: relative;
+    padding: 1px 0px ;
+    margin-top: 18px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+              border-radius: 15px;
+              backdrop-filter: blur(10px);
+              -webkit-backdrop-filter: blur(10px);
+              border: 1px solid rgba(255, 255, 255, 0.3);
+              box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: #fff;
+              text-align: center;
+              padding: 15px;
+              font-weight: bold
+  }
+  
+  input {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #252525;
+    outline: 0;
+    font-size: 1.2rem;
+    color: #d6d6d6;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  
+    &::placeholder {
+      color: transparent;
+    }
+  
+    &:placeholder-shown ~ label {
+      font-size: 1.2rem;
+      cursor: text;
+      top: 20px;
+    }
+  }
+  
+  label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1.1rem;
+    color: #fdfdfd;
+  }
+  
+  input:focus {
+    ~ label {
+      position: absolute;
+      top: 0;
+      display: block;
+      transition: 0.2s;
+      font-size: 1.1rem;
+      color: #38ef7d;
+      font-weight:700;    
+    }
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, #11998e,#38ef7d);
+    border-image-slice: 1;
+  }
+  /* reset input */
+  .form__field{
+    &:required,&:invalid { box-shadow:none; }
+  }
+  /* demo */
+  body{
+      font-family: 'Vazir', sans-serif;
+        margin: 0;
+              height: 100vh;
+              background: linear-gradient(270deg, #02007e, #1300c2);
+              background-size: 400% 400%;
+              animation: gradientAnimation 3s ease infinite;
+  
+  }
+  
+  @keyframes gradientAnimation {
+              0% {
+                  background-position: 0% 50%;
+              }
+              50% {
+                  background-position: 100% 50%;
+              }
+              100% {
+                  background-position: 0% 50%;
+              }
+          }
+          .Font{
             font-family: "ServerName";
-            src: url('/static/fonts/Mitra.ttf') format('truetype');
-        }
-
-        @font-face {
-            font-family: "Vazir";
-            src: url(http://rastikerdar.github.io/vazirmatn/);
-        }
-
-        .form-group {
-            position: relative;
-            padding: 1px 0px;
-            margin-top: 18px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            font-weight: bold;
-        }
-
-        input {
-            font-family: inherit;
-            width: 100%;
-            border: 0;
-            border-bottom: 2px solid #252525;
-            outline: 0;
-            font-size: 0.9rem;
-            color: #d6d6d6;
-            padding: 7px 0;
-            background: transparent;
-            transition: border-color 0.2s;
-        }
-
-        input::placeholder {
-            color: transparent;
-        }
-
-        input:placeholder-shown ~ label {
-            font-size: 0.9rem;
-            cursor: text;
-            top: 20px;
-        }
-
-        label {
-            position: absolute;
-            top: 0;
-            display: block;
-            transition: 0.2s;
-            font-size: 0.7rem;
-            color: #fdfdfd;
-        }
-
-        input:focus ~ label {
-            position: absolute;
-            top: 0;
-            display: block;
-            transition: 0.2s;
-            font-size: 0.7rem;
-            color: #38ef7d;
-            font-weight: 700;
-        }
-
-        input:focus {
-            padding-bottom: 6px;
-            font-weight: 700;
-            border-width: 3px;
-            border-image: linear-gradient(to right, #11998e, #38ef7d);
-            border-image-slice: 1;
-        }
-
-        .form__field:required,
-        .form__field:invalid {
-            box-shadow: none;
-        }
-
-        body {
-            font-family: 'Vazir', sans-serif;
-            margin: 0;
-            height: 100vh;
-            background: linear-gradient(270deg, #02007e, #1300c2);
-            background-size: 400% 400%;
-            animation: gradientAnimation 3s ease infinite;
-        }
-
-        .Font {
-            font-family: "ServerName";
-        }
-
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .KIANOOBS {
+          }
+          
+          .KIANOOBS{
             filter: sepia(1) saturate(10000%) hue-rotate(180deg);
             filter: brightness(0) invert(1);
+  
         }
+        @font-face {
+          font-family: "ServerName";
+          src: url('/static/fonts/Mitra.ttf') format('truetype');
+
+      }
     </style>
 </head>
 <body>
