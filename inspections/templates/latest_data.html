@@ -1,101 +1,170 @@
 {% extends "base.html" %}
-<head>
-    <meta charset="UTF-8">
-    <title>آخرین اطلاعات برای {{ station.name }}</title>
-    <style>
-        body {
-            direction: rtl;
-            font-family: 'Vazir', sans-serif;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
 {% block content %}
-
-    <h1>آخرین اطلاعات برای {{ station.name }}</h1>
-    <table>
-        <tr>
-            <th>نوع</th>
-            <th>مقدار</th>
-        </tr>
-        <tr>
-            <td>تعداد نازل‌های بنزین</td>
-            <td>{{ station.gasoline_nozzles }}</td>
-        </tr>
-        <tr>
-            <td>تعداد نازل‌های نفتنفتگاز</td>
-            <td>{{ station.gas_nozzles }}</td>
-        </tr>
-        <tr>
-            <td>میزان بنزین دریافتی</td>
-            <td>{{ station.gasoline_received }}</td>
-        </tr>
-        <tr>
-            <td>فروش مکانیکی بنزین</td>
-            <td>{{ gasoline_mechanical_sales }}</td>
-        </tr>
-        <tr>
-            <td>فروش مکانیکی نفتنفتگاز</td>
-            <td>{{ gas_mechanical_sales }}</td>
-        </tr>
-        <tr>
-            <td>موجودی پایانی بنزین</td>
-            <td>{{ gasoline_end_inventory }}</td>
-        </tr>
-        <tr>
-            <td>موجودی پایانی نفتنفتگاز</td>
-            <td>{{ gas_end_inventory }}</td>
-        </tr>
-        <tr>
-            <td>کل موجودی بنزین</td>
-            <td>{{ total_gasoline_inventory }}</td>
-        </tr>
-        <tr>
-            <td>کل موجودی نفتنفتگاز</td>
-            <td>{{ total_gas_inventory }}</td>
-        </tr>
-        <tr>
-            <td>خروجی بنزین</td>
-            <td>{{ gasoline_outflow }}</td>
-        </tr>
-        <tr>
-            <td>خروجی نفتنفتگاز</td>
-            <td>{{ gas_outflow }}</td>
-        </tr>
-        <tr>
-            <td>بعد از فروش بنزین</td>
-            <td>{{ gasoline_after_sales }}</td>
-        </tr>
-        <tr>
-            <td>بعد از فروش نفتنفتگاز</td>
-            <td>{{ gas_after_sales }}</td>
-        </tr>
-        <tr>
-            <td>اختلاف بنزین</td>
-            <td>{{ gasoline_difference }}</td>
-        </tr>
-        <tr>
-            <td>اختلاف نفتنفتگاز</td>
-            <td>{{ gas_difference }}</td>
-        </tr>
-        <tr>
-            <td>وضعیت بنزین</td>
-            <td>{{ gasoline_status }}</td>
-        </tr>
-        <tr>
-            <td>وضعیت نفتنفتگاز</td>
-            <td>{{ gas_status }}</td>
-        </tr>
-    </table>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 border border-1 p-1">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <p class="text-white">نام جایگاه : {{ station.name }}</p>
+                    <p class="text-white"><strong>نوع فرآورده : </strong> {{ station.date }}</p>
+                </div>
+                <div>
+                    <p class="text-white me-5"> تاریخ بازدید:</p>
+                    <p class="text-white me-5"><strong>ساعت:</strong> ...</p>
+                </div>
+            </div>
+            <div class="text-white">
+                <p><strong>دوره کنترل</strong> از تاریخ : {{ station.start_date }} <span>لغایت : {{ station.end_date }}</span></p>
+                <p><strong>کنترل کننده:</strong> ... </p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="4">گزارش عملیات بنزین</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>نازل</th>
+                        <th>ابتدا دوره</th>
+                        <th>انتها دوره</th>
+                        <th>فروش</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>آخر</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">کل فروش مکانیکی بنزین</td>
+                        <td>{{ gasoline_mechanical_sales }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">کل فروش الکترونیکی بنزین طبق گزارش سامانه</td>
+                        <td style="background-color: red;">{{ station.electronic_gasoline_sales }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">مقدار سرک / کسری بنزین</td>
+                        <td style="background-color: red;">{{ gasoline_difference }} ({{ gasoline_status }})</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">مقدار کسری غیر مجاز بنزین</td>
+                        <td style="background-color: red;">{{ qire_mojaz }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">مقدار مغایرت مکانیکی و الکترونیکی بنزین</td>
+                        <td style="background-color: red;">{{ electronic_mechanical_discrepancy }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 col-md-6">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="4">گزارش عملیات نفتگاز</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>نازل</th>
+                        <th>ابتدا دوره</th>
+                        <th>انتها دوره</th>
+                        <th>فروش</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>آخر</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">کل فروش مکانیکی نفتگاز</td>
+                        <td>{{ gas_mechanical_sales }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">کل فروش الکترونیکی نفتگاز طبق گزارش سامانه</td>
+                        <td style="background-color: yellow;">{{ station.electronic_gas_sales }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">مقدار سرک / کسری نفتگاز</td>
+                        <td style="background-color: yellow;">{{ gas_difference }} ({{ gas_status }})</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">-</td>
+                        <td style="background-color: yellow;">-</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">مقدار مغایرت مکانیکی و الکترونیکی نفتگاز</td>
+                        <td style="background-color: yellow;">{{ electronic_mechanical_discrepancy_gas }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="border border-1 p-1">
+            <div class="d-flex justify-content-between mt-5 mb-5">
+                <div>
+                    <p class="text-white">تاریخ گزارش : .........</p>
+                </div>
+            </div>
+            <div>
+                <p class="text-white text-center">امضاء :</p>
+            </div>
+        </div>
+        <a href="{% url 'render_pdf' station.id %}" class="btn btn-success mt-1 mb-3">دانلود PDF</a>
+    </div>
+</div>
 {% endblock %}
+
+

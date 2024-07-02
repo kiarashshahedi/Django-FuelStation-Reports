@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, create_station, station_detail, render_pdf_view, latest_data
+from .views import home, create_station, station_detail, generate_pdf, latest_data
 
 
 urlpatterns = [
@@ -8,7 +8,7 @@ urlpatterns = [
     # path('station/<int:station_id>/add_tanks/', add_tanks, name='add_tanks'),
     # path('station/<int:station_id>/add_nozzles/', add_nozzles, name='add_nozzles'),
     path('station/<int:station_id>/', station_detail, name='station_detail'),
-    path('station/<int:station_id>/pdf/', render_pdf_view, name='render_pdf'),
+    path('generate_pdf/<int:station_id>/', generate_pdf, name='generate_pdf'),
     path('station/<int:station_id>/latest/', latest_data, name='latest_data'),
 
     

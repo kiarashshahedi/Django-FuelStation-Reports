@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import FuelStation, Tank, Nozzle
-from django.template.loader import get_template
-from xhtml2pdf import pisa
 from django.db import transaction
 from django.urls import reverse
 import jdatetime
+from weasyprint import HTML
+from django.template.loader import render_to_string
 
 
 
@@ -229,20 +229,14 @@ def get_station_context(station_id):
 
     return context
 
-def render_pdf_view(request, station_id):
-    context = get_station_context(station_id)  # گرفتن کانتکست مستقیماً از تابع کمکی
+def generate_pdf(request, station_id):
+    context = get_station_context(station_id)
+    html_string = render_to_string('pdf_template.html', context)
+    html = HTML(string=html_string)
+    pdf = html.write_pdf()
 
-    template_path = 'pdf_template.html'
-
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-
-    template = get_template(template_path)
-    html = template.render(context)  # رندر قالب با کانتکست
-
-    pisa_status = pisa.CreatePDF(html, dest=response)
-    if pisa_status.err:
-        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="station.pdf"'
     return response
 
 def latest_data(request, station_id):

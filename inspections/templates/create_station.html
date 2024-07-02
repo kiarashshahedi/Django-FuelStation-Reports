@@ -200,4 +200,26 @@
     </div>
 </div>
 
+<script>
+    // انتخاب تمام عناصر با کلاس showFuel
+    document.querySelectorAll('.MAX').forEach(function(input) {
+        // اضافه کردن رویداد input به هر ورودی
+        input.addEventListener('input', function() {
+            let min = parseInt(input.min);
+            let max = parseInt(input.max);
+            let step = parseInt(input.step);
+            let value = parseInt(input.value);
+            
+            if (value < min) {
+                input.value = min;
+            } else if (value > max) {
+                input.value = max;
+            } else if ((value - min) % step !== 0) {
+                // در صورتی که مقدار وارد شده با step هماهنگ نباشد، آن را به نزدیکترین مقدار صحیح تنظیم کنید
+                input.value = Math.round((value - min) / step) * step + min;
+            }
+        });
+    });
+    
+</script>
 {% endblock %}

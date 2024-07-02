@@ -23,6 +23,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'inspections',
     'django_jalali',
+    'wkhtmltopdf',
+    
+
 ]
 
 MIDDLEWARE = [
@@ -106,3 +109,4 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+WKHTMLTOPDF_CMD = '/usr/local/bin/wkhtmltopdf'  # Adjust the path as necessary

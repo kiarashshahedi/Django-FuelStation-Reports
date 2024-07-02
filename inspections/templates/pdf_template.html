@@ -1,88 +1,260 @@
 {% extends "base.html" %}
-
-<head>
-    <meta charset="UTF-8">
-    <style>
-        @font-face {
-            font-family: 'Vazir';
-            src: url(data:font/truetype;charset=utf-8;base64,<encoded_string>) format('truetype');
-        }
-
-        body {
-            font-family: 'Vazir', sans-serif;
-            direction: rtl;
-            color: aliceblue;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid black;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: right;
-        }
-    </style>
-</head>
 {% block content %}
-    <h1>گزارش جایگاه {{ station.name }}</h1>
+<style>
+  table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    th, td {
+        border: 2px solid #000;
+        text-align: center;
+    }
+    td {
+        background-color: #ffffff;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    thead th {
+        background-color: #ddd;
+        font-weight: bold;
+    }
+    /* Media Query for Mobile Devices */
+    @media (max-width: 767px) {
+        .container-fluid {
+            padding: 0 4px;
+            
+        }
+        table {
+            font-size: 12px;
+        }
+        th, td {
+            padding: 2px;
+            
+        }
+    }
+</style>
+<div class="container mt-4">
+    <div class="row">
+
+        <div class="col-12 border border-1 p-1">
+            <div class="d-flex justify-content-between">
+    
+                <div>
+                    <p class="text-white">نام جایگاه : {{ station.name }}</p>
+                    <p class="text-white"><strong>نوع فرآورده : </strong> {{ station.date }}</p>
+    
+                </div>
+    
+                <div>
+                <p class="text-white me-5"> تاریخ بازدید:</p>
+                <p class="text-white me-5"><strong>ساعت:</strong> ...</p>
+                </div>
+    
+            </div>
+            
+            <div class="text-white">
+                <p><strong>دوره کنترل</strong>  از تاریخ : {{ station.start_date }} <span>لغایت : {{ station.end_date }}</span></p>
+                <p><strong>کنترل کننده:</strong> ... </p>
+            </div>
+        </div>
+    
+
+    <div class="col-12 col-md-6">
+
     <table>
-        <tr>
-            <th>آیتم</th>
-            <th>مقدار</th>
-        </tr>
-        <tr>
-            <td>مکانیکی بنزین</td>
-            <td>{{ gasoline_mechanical_sales }}</td>
-        </tr>
-        <tr>
-            <td>مکانیکی نفتنفتگاز</td>
-            <td>{{ gas_mechanical_sales }}</td>
-        </tr>
-        <tr>
-            <td>موجودی انتهای دوره بنزین</td>
-            <td>{{ gasoline_end_inventory }}</td>
-        </tr>
-        <tr>
-            <td>موجودی انتهای دوره نفتنفتگاز</td>
-            <td>{{ gas_end_inventory }}</td>
-        </tr>
-        <tr>
-            <td>کل موجودی بنزین</td>
-            <td>{{ total_gasoline_inventory }}</td>
-        </tr>
-        <tr>
-            <td>کل موجودی نفتنفتگاز</td>
-            <td>{{ total_gas_inventory }}</td>
-        </tr>
-        <tr>
-            <td>کل فرآورده خارج شده بنزین</td>
-            <td>{{ gasoline_outflow }}</td>
-        </tr>
-        <tr>
-            <td>کل فرآورده خارج شده نفتنفتگاز</td>
-            <td>{{ gas_outflow }}</td>
-        </tr>
-        <tr>
-            <td>بعد از فروش باید موجود باشد بنزین</td>
-            <td>{{ gasoline_after_sales }}</td>
-        </tr>
-        <tr>
-            <td>بعد از فروش باید موجود باشد نفتنفتگاز</td>
-            <td>{{ gas_after_sales }}</td>
-        </tr>
-        <tr>
-            <td>تفاوت موجودی و فروش بنزین</td>
-            <td>{{ gasoline_difference }} ({{ gasoline_status }})</td>
-        </tr>
-        <tr>
-            <td>تفاوت موجودی و فروش نفتنفتگاز</td>
-            <td>{{ gas_difference }} ({{ gas_status }})</td>
-        </tr>
+        <thead>
+            <tr>
+                <th colspan="4">گزارش عملیات بنزین</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>نازل</th>
+                <th>ابتدا دوره</th>
+                <th>انتها دوره</th>
+                <th>فروش</th>
+
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+               
+            </tr>
+            <tr>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+            </tr>
+            <tr>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+            </tr>
+            <tr>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+            </tr>
+            <tr>
+                <td>آخر</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+            </tr>
+            <tr>
+                <td colspan="3" >کل فروش مکانیکی بنزین</td>
+                <td >{{ gasoline_mechanical_sales }}</td>
+                
+            </tr>
+            <tr>
+                <td colspan="3" >کل فروش الکترونیکی بنزین طبق گزارش سامانه</td>
+                
+                <td style="background-color: red;" >{{ station.electronic_gasoline_sales }}</td>
+                
+
+            </tr>
+            <tr>
+                <td colspan="3">مقدار سرک / کسری بنزین</td>
+                
+                <td style="background-color: red;" >{{ gasoline_difference }} ({{ gasoline_status }})</td>
+                
+
+            </tr>
+            <tr>
+                <td colspan="3" >مقدار کسری غیر مجاز بنزین</td>
+                
+                <td style="background-color: red;" >{{ qire_mojaz }}</td>
+                
+
+            </tr>
+            <tr>
+                <td colspan="3">مقدار مغایرت مکانیکی و الکترونیکی بنزین</td>
+                
+                <td style="background-color: red;" >{{ electronic_mechanical_discrepancy }}</td>
+                
+
+            </tr>
+        </tbody>
     </table>
+</div>
+
+
+    <div class="col-12 col-md-6">
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="4">گزارش عملیات نفتگاز</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>نازل</th>
+                <th>ابتدا دوره</th>
+                <th>انتها دوره</th>
+                <th>فروش</th>
+
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+            </tr>
+            <tr>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+            </tr>
+            <tr>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+            </tr>
+            <tr>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+            </tr>
+            <tr>
+                <td>آخر</td>
+                <td></td>
+                <td></td>
+                <td></td>
+               
+            </tr>
+            <tr>
+                
+                <td colspan="3">کل فروش مکانیکی نفتگاز</td>
+                 <td >{{ gas_mechanical_sales }}</td>
+
+            </tr>
+            <tr>
+               
+                <td colspan="3">کل فروش الکترونیکی نفتگاز طبق گزارش سامانه</td>
+                <td style="background-color: yellow;">{{ station.electronic_gas_sales }}</td>
+
+            </tr>
+            <tr>
+                <td colspan="3">مقدار سرک / کسری نفتگاز</td>
+
+                <td style="background-color: yellow;">{{ gas_difference }} ({{ gas_status }})</td>
+
+            </tr>
+            <tr>
+               
+                <td colspan="3" > - </td>
+
+                <td style="background-color: yellow;"> - </td>
+
+            </tr>
+            <tr>
+                
+                <td colspan="3" >مقدار مغایرت مکانیکی و الکترونیکی نفتگاز</td>
+                <td  style="background-color: yellow;"> {{ electronic_mechanical_discrepancy_gas }} </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="border border-1 p-1">
+
+    <div class="d-flex justify-content-between mt-5 mb-5">
+
+        <div class="">
+            <p class="text-white ">تاریخ گزارش : .........</p>
+        </div>
+        
+    </div>
+
+    <div class="">
+        <p class="text-white text-center">امضاء :</p>
+    </div>
+
+</div>
+
+
+<a href="{% url 'generate_pdf' station.id %}" class="btn btn-success mt-1 mb-3">Download PDF</a>
+</div>
+</div>
+
 {% endblock %}
