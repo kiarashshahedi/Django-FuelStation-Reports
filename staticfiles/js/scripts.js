@@ -112,6 +112,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateButtons() {
         prevButton.disabled = currentPageIndex === 0;
         nextButton.disabled = currentPageIndex === pages.length - 1;
+
+        if (currentPageIndex === pages.length - 1) {
+            // اگر در صفحه آخر هستیم، دکمه "ادامه" را به "ذخیره" تغییر دهید
+            nextButton.innerHTML = "ذخیره";
+        } else {
+            // در غیر این صورت، دوباره دکمه را به "ادامه" تنظیم کنید
+            nextButton.innerHTML = "ادامه";
+        }
     }
 
     // بروزرسانی دکمه‌ها برای اولین بار
@@ -127,6 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
             pages[currentPageIndex].classList.add('active');
             // بروزرسانی وضعیت دکمه‌ها
             updateButtons();
+        } else {
+            // در صفحه آخر، ارسال فرم (این قسمت را باید به نحو مناسبی تنظیم کنید)
+            submitForm();
         }
     });
 
@@ -142,14 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
             updateButtons();
         }
     });
-});
 
 
-document.addEventListener("DOMContentLoaded", function() {
     // دریافت فیلد ورودی و دکمه
     const nameInput = document.getElementById("name");
-    let nextButton = document.getElementById('nextButton');
-            
+
     // تابع برای بررسی وضعیت ورودی
     const checkInput = () => {
         if (nameInput.value.trim() !== "") {
@@ -161,8 +169,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // افزودن رویداد 'input' به فیلد ورودی
     nameInput.addEventListener("input", checkInput);
-});
 
+    // تابع برای ارسال فرم (این بخش را به نحو مناسبی تنظیم کنید)
+    function submitForm() {
+        // این قسمت را باید به فرم شما و اطلاعات آن تطبیق دهید
+        console.log("فرم ارسال شد!");
+        // مثال: ارسال فرم به وب سرور
+         document.getElementById("myForm").submit();
+    }
+});
 
     // JavaScript for dynamically adding tank and nozzle fields
 document.getElementById('gasoline_tanks').addEventListener('change', function() {
