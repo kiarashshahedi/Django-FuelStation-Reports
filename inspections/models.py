@@ -25,7 +25,7 @@ class FuelStation(models.Model):
     start_date = jmodels.jDateField()
     end_date = jmodels.jDateField()
     
-    controller = models.TextField()
+    controller = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
