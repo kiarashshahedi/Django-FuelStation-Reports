@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from .models import FuelStation, Tank, Nozzle
 from django.db import transaction
 from django.urls import reverse
-import jdatetime
 from weasyprint import HTML
 from django.template.loader import render_to_string
+import jdatetime
 
 
 
@@ -30,21 +30,9 @@ def create_station(request):
         end_date = request.POST.get('end_date')
         controller = request.POST.get('controller')
 
-        # تبدیل تاریخ شمسی به میلادی
-        start_date_parts = list(map(int, start_date.split('-')))
-        end_date_parts = list(map(int, end_date.split('-')))
-
-        gregorian_start_date = jdatetime.date(
-            start_date_parts[0],
-            start_date_parts[1],
-            start_date_parts[2]
-        ).togregorian()
-
-        gregorian_end_date = jdatetime.date(
-            end_date_parts[0],
-            end_date_parts[1],
-            end_date_parts[2]
-        ).togregorian()
+        # # Convert Jalali dates to Gregorian dates
+        # start_date = jdatetime.date.fromisoformat(start_date).togregorian()
+        # end_date = jdatetime.date.fromisoformat(end_date).togregorian()
         
         with transaction.atomic():
             station = FuelStation.objects.create(
@@ -59,8 +47,8 @@ def create_station(request):
                 gas_received=gas_received,
                 electronic_gasoline_sales=electronic_gasoline_sales,
                 electronic_gas_sales=electronic_gas_sales,
-                start_date=gregorian_start_date,
-                end_date=gregorian_end_date,
+                start_date=start_date,
+                end_date=end_date,
                 controller=controller
             )
 
@@ -118,7 +106,8 @@ def station_detail(request, station_id):
     nozzles = Nozzle.objects.filter(station=station)
     tanks = Tank.objects.filter(station=station)
 
-    gasoline_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gasoline')
+
+    gasoline_mechanical_sales = station.gasoline_mechanical_sales()
     gas_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gas')
 
     gasoline_end_inventory = sum(t.amount for t in tanks if t.type == 'gasoline')

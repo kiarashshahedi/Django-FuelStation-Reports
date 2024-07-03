@@ -29,6 +29,14 @@ class FuelStation(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def gasoline_mechanical_sales(self):
+        # Sum up mechanical sales of all gasoline nozzles for this station
+        total_sales = 0.0
+        gasoline_nozzles = Nozzle.objects.filter(station=self, type='gasoline')
+        for nozzle in gasoline_nozzles:
+            total_sales += nozzle.mechanical_sales()
+        return total_sales
 
 class Tank(models.Model):
     station = models.ForeignKey(FuelStation, on_delete=models.CASCADE)
