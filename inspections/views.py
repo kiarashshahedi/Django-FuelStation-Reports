@@ -116,14 +116,14 @@ def station_detail(request, station_id):
     total_gasoline_inventory = station.gasoline_beginning + station.gasoline_received
     total_gas_inventory = station.gas_beginning + station.gas_received
 
-    gasoline_outflow = total_gasoline_inventory - gasoline_end_inventory
-    gas_outflow = total_gas_inventory - gas_end_inventory
+    # gasoline_outflow = total_gasoline_inventory - gasoline_end_inventory
+    # gas_outflow = total_gas_inventory - gas_end_inventory
 
-    gasoline_after_sales = total_gasoline_inventory - gasoline_mechanical_sales
-    gas_after_sales = total_gas_inventory - gas_mechanical_sales
+    # gasoline_after_sales = total_gasoline_inventory - gasoline_mechanical_sales
+    # gas_after_sales = total_gas_inventory - gas_mechanical_sales
 
-    gasoline_difference = gasoline_end_inventory - gasoline_after_sales
-    gas_difference = gas_end_inventory - gas_after_sales
+    gasoline_difference = gasoline_end_inventory - total_gas_inventory
+    gas_difference = gas_end_inventory - total_gas_inventory
 
     gasoline_status = 'کسری' if gasoline_difference > gasoline_end_inventory else 'سرک'
     gas_status = 'کسری' if gas_difference > gas_end_inventory else 'سرک'
@@ -146,10 +146,10 @@ def station_detail(request, station_id):
         'gas_end_inventory': gas_end_inventory,
         'total_gasoline_inventory': total_gasoline_inventory,
         'total_gas_inventory': total_gas_inventory,
-        'gasoline_outflow': gasoline_outflow,
-        'gas_outflow': gas_outflow,
-        'gasoline_after_sales': gasoline_after_sales,
-        'gas_after_sales': gas_after_sales,
+        # 'gasoline_outflow': gasoline_outflow,
+        # 'gas_outflow': gas_outflow,
+        # 'gasoline_after_sales': gasoline_after_sales,
+        # 'gas_after_sales': gas_after_sales,
         'gasoline_difference': gasoline_difference,
         'gas_difference': gas_difference,
         'gasoline_status': gasoline_status,
