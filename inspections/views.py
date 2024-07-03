@@ -106,35 +106,38 @@ def station_detail(request, station_id):
     nozzles = Nozzle.objects.filter(station=station)
     tanks = Tank.objects.filter(station=station)
 
-
+    # FOROSH MEKANIKI NAZEL HA
     gasoline_mechanical_sales = station.gasoline_mechanical_sales()
     gas_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gas')
 
+    # JAME HAMEYE MAKHAZEN
     gasoline_end_inventory = sum(t.amount for t in tanks if t.type == 'gasoline')
     gas_end_inventory = sum(t.amount for t in tanks if t.type == 'gas')
-
+    
+    # EBTEDA DORE + RESIDE
     total_gasoline_inventory = station.gasoline_beginning + station.gasoline_received
     total_gas_inventory = station.gas_beginning + station.gas_received
 
-    # gasoline_outflow = total_gasoline_inventory - gasoline_end_inventory
-    # gas_outflow = total_gas_inventory - gas_end_inventory
+    # RESIDE - MOJODI MAKHAZEN
+    gasoline_outflow = station.gasoline_received - gasoline_end_inventory
+    gas_outflow = station.gas_received - gas_end_inventory
 
-    # gasoline_after_sales = total_gasoline_inventory - gasoline_mechanical_sales
-    # gas_after_sales = total_gas_inventory - gas_mechanical_sales
+    # MEKANIKI - KHAREJ SHODE
+    gasoline_difference = gasoline_mechanical_sales - gasoline_outflow
+    gas_difference = gas_mechanical_sales - gas_outflow
 
-    gasoline_difference = gasoline_end_inventory - total_gas_inventory
-    gas_difference = gas_end_inventory - total_gas_inventory
-
-    gasoline_status = 'کسری' if gasoline_difference > gasoline_end_inventory else 'سرک'
-    gas_status = 'کسری' if gas_difference > gas_end_inventory else 'سرک'
+    # AGE MOSBAT BOD SARAK AGE MANFI BOD KASRI
+    gasoline_status = 'کسری' if gasoline_difference < 0 else 'سرک'
+    gas_status = 'کسری' if gas_difference > 0 else 'سرک'
     
-    qire_mojaz = gasoline_mechanical_sales * 0.0045 - gasoline_difference
+    # MEKANIKI NAZEL HA * 0.0045 - TAFAVOT FOROSH VA MOJODI(RESIDE)
+    qire_mojaz = (gasoline_mechanical_sales * 0.0045) - gasoline_difference
+    
+    # TAFAVOT ELECTRONIKI VA MEKANIKI
     electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
     electronic_mechanical_discrepancy_gas = station.electronic_gas_sales - gas_mechanical_sales
 
-    # Debugging: print the values
-    print(f"qire_mojaz: {qire_mojaz}")
-    print(f"electronic_mechanical_discrepancy: {electronic_mechanical_discrepancy}")
+    
 
     context = {
         'station': station,
@@ -146,8 +149,8 @@ def station_detail(request, station_id):
         'gas_end_inventory': gas_end_inventory,
         'total_gasoline_inventory': total_gasoline_inventory,
         'total_gas_inventory': total_gas_inventory,
-        # 'gasoline_outflow': gasoline_outflow,
-        # 'gas_outflow': gas_outflow,
+        'gasoline_outflow': gasoline_outflow,
+        'gas_outflow': gas_outflow,
         # 'gasoline_after_sales': gasoline_after_sales,
         # 'gas_after_sales': gas_after_sales,
         'gasoline_difference': gasoline_difference,
