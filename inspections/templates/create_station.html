@@ -22,16 +22,16 @@
             <div class="button-container d-grid">
 
                 <button onclick="showGas()" class="btn glasss btn-gas btn btn-outline-info w-100 mt-3 bi bi-circle-fill text-warning">
-                    <span class="ms-1 text-white">نفتگاز</span>
+                    <span onclick="handleClick('button1')" class="ms-1 text-white">نفتگاز</span>
                 </button>
 
                 <button onclick="showPetrol()" class="btn glasss btn-petrol btn btn-outline-info w-100 mt-3 bi bi-circle-fill text-danger">
-                    <span class="ms-1 text-white">بنزین</span>
+                    <span onclick="handleClick('button2')" class="ms-1 text-white">بنزین</span>
                 </button>
                 
                 <button onclick="showBoth()" class="btn glasss btn-both btn btn-outline-info w-100 mt-3 ">
                     <span class="bi bi-circle-fill text-warning ms-1"></span>
-                    <span class="ms-1 me-1 text-white"> هر دو </span>
+                    <span onclick="handleClick('button3')" class="ms-1 me-1 text-white"> هر دو </span>
                     <span class="bi bi-circle-fill text-danger me-1"></span>
                 </button>
             </div>
@@ -54,7 +54,7 @@
         
         <div class="page " id="page5">
 
-            <h5 class="text-start text-danger mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
+            <h5 class="text-start text-danger mt-3 ms-2 showFuel showAll "><i class="bi bi-circle-fill"></i></h5>
             <div class="form-group showFuel showAll">
 
                 <input type="number" class="showFuel MAX" id="gasoline_tanks" min="1" max="10" step="1" value="1" placeholder="تعداد مخازن بنزین" name="gasoline_tanks" required>
@@ -69,7 +69,7 @@
 
             </div>
 
-            <h5 class="text-start text-warning mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
+            <h5 class="text-start text-warning mt-3 ms-2 showGaz showAll"><i class="bi bi-circle-fill"></i></h5>
 
             <div class="form-group showGaz showAll">
 
@@ -88,7 +88,7 @@
         </div>
 
         <div class="page " id="page6">
-            <h5 class="text-start text-danger mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
+            <h5 class="text-start text-danger mt-3 ms-2 showFuel showAll "><i class="bi bi-circle-fill"></i></h5>
 
             <div class="form-group showFuel showAll">
 
@@ -109,9 +109,9 @@
             </div>
             <hr>
 
-            <h5 class="text-start text-warning mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
+            <h5 class="text-start text-warning mt-3 ms-2 showGaz showAll "><i class="bi bi-circle-fill"></i></h5>
 
-            <div class="form-group showGaz ">
+            <div class="form-group  showGaz showAll ">
                 
                 <input type="number" class="showGaz" step="0.01" placeholder="مقدار ابتدای دوره نفتگاز" id="gas_beginning" name="gas_beginning" required>
                 <label for="gas_beginning">مقدار ابتدای دوره نفتگاز</label>
@@ -148,13 +148,13 @@
 
         <div class="page" id="page9">
             <div>
-                <h5 class="text-start text-danger mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
+                <h5 class="text-start text-danger mt-3 ms-2  showFuel showAll"><i class="bi bi-circle-fill"></i></h5>
                 <div class="form-group showFuel showAll">
                     <input type="number" class="showFuel" step="0.01" placeholder="کل فروش الکترونیکی بنزین" id="electronic_gasoline_sales" name="electronic_gasoline_sales" required>
                     <label for="electronic_gasoline_sales">کل فروش الکترونیکی بنزین</label>
                 </div>
 
-                <h5 class="text-start text-warning mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
+                <h5 class="text-start text-warning mt-3 ms-2 showGaz showAll"><i class="bi bi-circle-fill"></i></h5>
                 <div class="form-group showGaz showAll">
                     <input type="number" class="showGaz" step="0.01" placeholder="کل فروش الکترونیکی نفتگاز" id="electronic_gas_sales" name="electronic_gas_sales" required>
                     <label for="electronic_gas_sales">کل فروش الکترونیکی نفتگاز</label>
@@ -220,6 +220,9 @@
             }
         });
     });
-    
+    {% comment %} function handleClick(fuelType) {
+            localStorage.setItem('selectedFuel', fuelType);
+            window.location.href = "{% url ' station_detail' %}";
+        } {% endcomment %}
 </script>
 {% endblock %}

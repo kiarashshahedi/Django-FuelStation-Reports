@@ -139,7 +139,7 @@ def station_detail(request, station_id):
 
     # JAME HAMEYE MAKHAZEN
     gasoline_end_inventory = station.total_tank_amount()  # Should include both gas and gasoline tanks
-    gas_end_inventory = station.gasoline_end_inventory()  # Only gasoline tanks
+    gas_end_inventory = station.total_gs_tank_amount()  # Only gasoline tanks
     
     # EBTEDA DORE + RESIDE = 0+100000
     total_gasoline_inventory = station.gasoline_beginning + station.gasoline_received
