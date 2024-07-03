@@ -1,6 +1,8 @@
 from django.db import models
 import django_jalali.db.models as jmodels
 from django.db import transaction
+from django.db.models import Sum
+
 
 
 
@@ -37,11 +39,44 @@ class FuelStation(models.Model):
         for nozzle in gasoline_nozzles:
             total_sales += nozzle.mechanical_sales()
         return total_sales
+    
+    def gas_mechanical_sales(self):
+        # Sum up mechanical sales of all gasoline nozzles for this station
+        total_sales = 0.0
+        gas_nozzles = Nozzle.objects.filter(station=self, type='gas')
+        for nozzle in gas_nozzles:
+            total_sales += nozzle.mechanical_sales()
+        return total_sales
+    
+    def gasoline_end_inventory(self):
+        total_amount = 0.0
+        gasoline_tanks = Tank.objects.filter(station=self, type='gasoline')
+        for tank in gasoline_tanks:
+            total_amount += tank.amount_tank()
+        return total_amount
+
+    def gas_end_inventory(self):
+        total_amount = 0.0
+        gas_tanks = Tank.objects.filter(station=self, type='gas')
+        for tank in gas_tanks:
+            total_amount += tank.amount_tank()
+        return total_amount
+
+    def total_tank_amount(self):
+        total_amount = Tank.objects.filter(station=self).aggregate(total=Sum('amount'))['total']
+        return total_amount if total_amount is not None else 0.0
+
 
 class Tank(models.Model):
     station = models.ForeignKey(FuelStation, on_delete=models.CASCADE)
     type = models.CharField(max_length=50, choices=[('gasoline', 'Gasoline'), ('gas', 'Gas')])
     amount = models.FloatField()
+    
+    def amount_tank(self):
+        return self.amount
+    
+    def __str__(self):
+        return f"{self.type} tank with {self.amount} amount"
 
 class Nozzle(models.Model):
     station = models.ForeignKey(FuelStation, on_delete=models.CASCADE)
@@ -51,3 +86,6 @@ class Nozzle(models.Model):
 
     def mechanical_sales(self):
         return self.end_totalizer - self.start_totalizer
+
+    def __str__(self):
+        return f"{self.type} nozzle with start: {self.start_totalizer} and end: {self.end_totalizer}"

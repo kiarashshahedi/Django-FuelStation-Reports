@@ -102,24 +102,30 @@ def create_station(request):
 #     return render(request, 'add_nozzles.html', {'station': station})
 
 def station_detail(request, station_id):
-    station = FuelStation.objects.get(id=station_id)
-    nozzles = Nozzle.objects.filter(station=station)
+    station = get_object_or_404(FuelStation, id=station_id)
+    
+    gasoline_nozzles = Nozzle.objects.filter(station=station, type='gasoline')
+    gas_nozzles = Nozzle.objects.filter(station=station, type='gas')
+
+    gasoline_tanks = Tank.objects.filter(station=station, type='gasoline')
+    gas_tanks = Tank.objects.filter(station=station, type='gas')
     tanks = Tank.objects.filter(station=station)
+
 
     # FOROSH MEKANIKI NAZEL HA
     gasoline_mechanical_sales = station.gasoline_mechanical_sales()
-    gas_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gas')
+    gas_mechanical_sales = station.gas_mechanical_sales()
 
     # JAME HAMEYE MAKHAZEN
-    gasoline_end_inventory = sum(t.amount for t in tanks if t.type == 'gasoline')
-    gas_end_inventory = sum(t.amount for t in tanks if t.type == 'gas')
+    gasoline_end_inventory = station.total_tank_amount()
+    gas_end_inventory = station.gasoline_end_inventory()
     
-    # EBTEDA DORE + RESIDE
+    # EBTEDA DORE + RESIDE = 0+100000
     total_gasoline_inventory = station.gasoline_beginning + station.gasoline_received
     total_gas_inventory = station.gas_beginning + station.gas_received
 
-    # RESIDE - MOJODI MAKHAZEN
-    gasoline_outflow = station.gasoline_received - gasoline_end_inventory
+    # 100000 - MOJODI MAKHAZEN
+    gasoline_outflow = total_gasoline_inventory - station.gasoline_end_inventory()
     gas_outflow = station.gas_received - gas_end_inventory
 
     # MEKANIKI - KHAREJ SHODE
@@ -137,12 +143,17 @@ def station_detail(request, station_id):
     electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
     electronic_mechanical_discrepancy_gas = station.electronic_gas_sales - gas_mechanical_sales
 
+    # MEQDAR TOTALIZER HAR NOZEL 
+    
     
 
     context = {
         'station': station,
-        'nozzles': nozzles,
-        'tanks': tanks,
+        'gasoline_nozzles': gasoline_nozzles,
+        'gas_nozzles': gas_nozzles,
+
+        'gasoline_tanks': gasoline_tanks,
+        'gas_tanks': gas_tanks,        
         'gasoline_mechanical_sales': gasoline_mechanical_sales,
         'gas_mechanical_sales': gas_mechanical_sales,
         'gasoline_end_inventory': gasoline_end_inventory,

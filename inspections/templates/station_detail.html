@@ -91,6 +91,7 @@
             </tr>
         </thead>
         <tbody>
+
             <tr>
                 <th>نازل</th>
                 <th>ابتدا دوره</th>
@@ -98,41 +99,17 @@
                 <th>فروش</th>
 
             </tr>
+            {% for nozzle in gasoline_nozzles %}
+
             <tr>
-                <td>1</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ nozzle.start_totalizer }}</td>
+                <td>{{ nozzle.end_totalizer }}</td>
                
             </tr>
-            <tr>
-                <td>2</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
-            <tr>
-                <td>3</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
-            <tr>
-                <td>4</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
-            <tr>
-                <td>آخر</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
+            {% endfor %}
+
+            
             <tr>
                 <td colspan="3" >کل فروش مکانیکی بنزین</td>
                 <td >{{ gasoline_mechanical_sales }}</td>
@@ -180,6 +157,8 @@
             </tr>
         </thead>
         <tbody>
+            
+
             <tr>
                 <th>نازل</th>
                 <th>ابتدا دوره</th>
@@ -187,41 +166,15 @@
                 <th>فروش</th>
 
             </tr>
+            {% for nozzle in gas_nozzles %}
+
             <tr>
-                <td>1</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
-            <tr>
-                <td>2</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
-            <tr>
-                <td>3</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
-            <tr>
-                <td>4</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-            </tr>
-            <tr>
-                <td>آخر</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ nozzle.start_totalizer }}</td>
+                <td>{{ nozzle.end_totalizer }}</td>
                
             </tr>
+            {% endfor %}
             <tr>
                 
                 <td colspan="3">کل فروش مکانیکی نفتگاز</td>
@@ -256,6 +209,23 @@
         </tbody>
     </table>
 </div>
+<ul class="text-white">
+    <li>Gasoline Mechanical Sales: {{ gasoline_mechanical_sales }}</li>
+    <li>Gas Mechanical Sales: {{ gas_mechanical_sales }}</li>
+    <li>Gasoline End Inventory: {{ gasoline_end_inventory }}</li>
+    <li>Gas End Inventory: {{ gas_end_inventory }}</li>
+    <li>Total Gasoline Inventory: {{ total_gasoline_inventory }}</li>
+    <li>Total Gas Inventory: {{ total_gas_inventory }}</li>
+    <li>Gasoline Outflow: {{ gasoline_outflow }}</li>
+    <li>Gas Outflow: {{ gas_outflow }}</li>
+    <li>Gasoline Difference: {{ gasoline_difference }}</li>
+    <li>Gas Difference: {{ gas_difference }}</li>
+    <li>Gasoline Status: {{ gasoline_status }}</li>
+    <li>Gas Status: {{ gas_status }}</li>
+    <li>Qire Mojaz: {{ qire_mojaz }}</li>
+    <li>Electronic-Mechanical Discrepancy (Gasoline): {{ electronic_mechanical_discrepancy }}</li>
+    <li>Electronic-Mechanical Discrepancy (Gas): {{ electronic_mechanical_discrepancy_gas }}</li>
+</ul>
 
 <div class="border border-1 p-1 showBase">
 
@@ -270,6 +240,7 @@
     <div class="">
         <p class="text-white text-center">امضاء :</p>
     </div>
+    
 
 </div>
 
