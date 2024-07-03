@@ -1,4 +1,7 @@
+
 {% extends "base.html" %}
+{% load custom_filters %}
+
 {% block content %}
 <style>
   table {
@@ -105,6 +108,7 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ nozzle.start_totalizer }}</td>
                 <td>{{ nozzle.end_totalizer }}</td>
+                <td>{{ nozzle.end_totalizer|subtract:nozzle.start_totalizer }}</td>
                
             </tr>
             {% endfor %}
@@ -172,6 +176,8 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ nozzle.start_totalizer }}</td>
                 <td>{{ nozzle.end_totalizer }}</td>
+                <td>{{ nozzle.end_totalizer|subtract:nozzle.start_totalizer }}</td>
+
                
             </tr>
             {% endfor %}
@@ -209,7 +215,7 @@
         </tbody>
     </table>
 </div>
-<ul class="text-white">
+{% comment %} <ul class="text-white">
     <li>Gasoline Mechanical Sales: {{ gasoline_mechanical_sales }}</li>
     <li>Gas Mechanical Sales: {{ gas_mechanical_sales }}</li>
     <li>Gasoline End Inventory: {{ gasoline_end_inventory }}</li>
@@ -225,7 +231,7 @@
     <li>Qire Mojaz: {{ qire_mojaz }}</li>
     <li>Electronic-Mechanical Discrepancy (Gasoline): {{ electronic_mechanical_discrepancy }}</li>
     <li>Electronic-Mechanical Discrepancy (Gas): {{ electronic_mechanical_discrepancy_gas }}</li>
-</ul>
+</ul> {% endcomment %}
 
 <div class="border border-1 p-1 showBase">
 

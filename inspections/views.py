@@ -106,6 +106,25 @@ def station_detail(request, station_id):
     gasoline_nozzles = Nozzle.objects.filter(station=station, type='gasoline')
     gas_nozzles = Nozzle.objects.filter(station=station, type='gas')
 
+    # Prepare nozzle sales data
+    gasoline_nozzle_sales = []
+    for nozzle in gasoline_nozzles:
+        each_nozzle_sale = nozzle.end_totalizer - nozzle.start_totalizer
+        gasoline_nozzle_sales.append({
+            'nozzle': nozzle,
+            'sale': each_nozzle_sale
+        })
+
+    gas_nozzle_sales = []
+    for nozzle in gas_nozzles:
+        each_nozzle_sale = nozzle.end_totalizer - nozzle.start_totalizer
+        gas_nozzle_sales.append({
+            'nozzle': nozzle,
+            'sale': each_nozzle_sale
+        })
+        
+        
+        
     gasoline_tanks = Tank.objects.filter(station=station, type='gasoline')
     gas_tanks = Tank.objects.filter(station=station, type='gas')
 
@@ -116,6 +135,7 @@ def station_detail(request, station_id):
     # FOROSH MEKANIKI NAZEL HA
     gasoline_mechanical_sales = station.gasoline_mechanical_sales()
     gas_mechanical_sales = station.gas_mechanical_sales()
+
 
     # JAME HAMEYE MAKHAZEN
     gasoline_end_inventory = station.total_tank_amount()  # Should include both gas and gasoline tanks
@@ -152,7 +172,9 @@ def station_detail(request, station_id):
         'station': station,
         'gasoline_nozzles': gasoline_nozzles,
         'gas_nozzles': gas_nozzles,
-
+        'gasoline_nozzle_sales': gasoline_nozzle_sales,
+        'gas_nozzle_sales': gas_nozzle_sales,
+        
         'gasoline_tanks': gasoline_tanks,
         'gas_tanks': gas_tanks,        
         'gasoline_mechanical_sales': gasoline_mechanical_sales,
