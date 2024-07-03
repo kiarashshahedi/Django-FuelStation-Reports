@@ -206,7 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
     });
-
 document.getElementById('gasoline_nozzles').addEventListener('change', function() {
     var nozzleCount = parseInt(this.value);
     var container = document.getElementById('gasoline-nozzles');

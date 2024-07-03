@@ -29,10 +29,6 @@ def create_station(request):
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
         controller = request.POST.get('controller')
-
-        # # Convert Jalali dates to Gregorian dates
-        # start_date = jdatetime.date.fromisoformat(start_date).togregorian()
-        # end_date = jdatetime.date.fromisoformat(end_date).togregorian()
         
         with transaction.atomic():
             station = FuelStation.objects.create(
@@ -52,12 +48,15 @@ def create_station(request):
                 controller=controller
             )
 
-            for i in range(gasoline_tanks):
+            for i in range(1, gasoline_tanks + 1):
                 amount = float(request.POST.get(f'gasoline_tank_{i}', 0))
+                print(f'Gasoline Tank {i} amount: {amount}')  # Debug
+
                 Tank.objects.create(station=station, type='gasoline', amount=amount)
 
-            for i in range(gas_tanks):
+            for i in range(1, gas_tanks + 1):
                 amount = float(request.POST.get(f'gas_tank_{i}', 0))
+                print(f'Gas Tank {i} amount: {amount}')  # Debug
                 Tank.objects.create(station=station, type='gas', amount=amount)
 
             for i in range(gasoline_nozzles):
@@ -109,7 +108,9 @@ def station_detail(request, station_id):
 
     gasoline_tanks = Tank.objects.filter(station=station, type='gasoline')
     gas_tanks = Tank.objects.filter(station=station, type='gas')
-    tanks = Tank.objects.filter(station=station)
+
+    print(f"Gasoline tanks: {gasoline_tanks}")
+    print(f"Gas tanks: {gas_tanks}")
 
 
     # FOROSH MEKANIKI NAZEL HA
@@ -117,8 +118,8 @@ def station_detail(request, station_id):
     gas_mechanical_sales = station.gas_mechanical_sales()
 
     # JAME HAMEYE MAKHAZEN
-    gasoline_end_inventory = station.total_tank_amount()
-    gas_end_inventory = station.gasoline_end_inventory()
+    gasoline_end_inventory = station.total_tank_amount()  # Should include both gas and gasoline tanks
+    gas_end_inventory = station.gasoline_end_inventory()  # Only gasoline tanks
     
     # EBTEDA DORE + RESIDE = 0+100000
     total_gasoline_inventory = station.gasoline_beginning + station.gasoline_received

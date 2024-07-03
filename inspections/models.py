@@ -64,6 +64,7 @@ class FuelStation(models.Model):
 
     def total_tank_amount(self):
         total_amount = Tank.objects.filter(station=self).aggregate(total=Sum('amount'))['total']
+        print(f"Aggregated total amount: {total_amount}")  # Debug print
         return total_amount if total_amount is not None else 0.0
 
 
