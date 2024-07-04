@@ -265,12 +265,12 @@ document.getElementById('gas_nozzles').addEventListener('change', function() {
     <h5 class="text-start text-warning mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
             
             <div class="form-group">
-                <input type="number" step="0.01" id="gas_nozzle_start_totalizer_${i}" name="gas_nozzle_start_totalizer_${i}" placeholder="مقدار توتالیزو ابتدا دوره نازل نفتگاز شماره " class="" required>
-                <label for="gas_nozzle_start_totalizer_${i}">مقدار توتالیزو ابتدا دوره نازل نفتگاز شماره  ${i + 1}</label>
+                <input type="number" step="0.01" id="gas_nozzle_start_totalizer_${i}" name="gas_nozzle_start_totalizer_${i}" placeholder=" توتالیزو ابتدا دوره نازل نفتگاز شماره " class="" required>
+                <label for="gas_nozzle_start_totalizer_${i}"> توتالیزو ابتدا دوره نازل نفتگاز شماره  ${i + 1}</label>
             </div>
             <div class="form-group">
-                <input type="number" step="0.01" id="gas_nozzle_end_totalizer_${i}" name="gas_nozzle_end_totalizer_${i}" placeholder="مقدار توتالیزو انتها دوره نازل نفتگاز شماره " class="" required>
-                <label for="gas_nozzle_end_totalizer_${i}">مقدار توتالیزو انتها دوره نازل نفتگاز شماره  ${i + 1}</label>
+                <input type="number" step="0.01" id="gas_nozzle_end_totalizer_${i}" name="gas_nozzle_end_totalizer_${i}" placeholder=" توتالیزو انتها دوره نازل نفتگاز شماره " class="" required>
+                <label for="gas_nozzle_end_totalizer_${i}"> توتالیزو انتها دوره نازل نفتگاز شماره  ${i + 1}</label>
             </div>
         `;
     }
