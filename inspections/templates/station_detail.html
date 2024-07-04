@@ -38,51 +38,46 @@
         }
     }
 </style>
-<div class="p-3">
-<div class="page container p-3" id="page2">
-
-    <p class="text-center text-white">  گزارش جایگاه : </p>
-    <div class="button-container d-grid">
-
-        <button onclick="showGas()" class="btn glasss btn-gas btn btn-outline-info w-100 mt-3 bi bi-circle-fill text-warning">
+<div class="">
+    <div class="page container" id="page2">
+        <p class="text-center text-white">گزارش ها : </p>
+        <div class="button-container d-grid">
+    
+        <button onclick="showGas()" class="btn glasss btn-gas btn btn-outline-info w-100 mt-1 bi bi-circle-fill text-warning">
             <span class="ms-1 text-white">نفتگاز</span>
         </button>
-
-        <button onclick="showPetrol()" class="btn glasss btn-petrol btn btn-outline-info w-100 mt-3 bi bi-circle-fill text-danger">
+    
+        <button onclick="showPetrol()" class="btn glasss btn-petrol btn btn-outline-info w-100 mt-1 bi bi-circle-fill text-danger">
             <span class="ms-1 text-white">بنزین</span>
         </button>
-        
-        <button onclick="showBoth()" class="btn glasss btn-both btn btn-outline-info w-100 mt-3 ">
+    
+        <button onclick="showBoth()" class="btn glasss btn-both btn btn-outline-info w-100 mt-1">
             <span class="bi bi-circle-fill text-warning ms-1"></span>
-            <span class="ms-1 me-1 text-white"> هر دو </span>
+            <span class="ms-1 me-1 text-white">هر دو</span>
             <span class="bi bi-circle-fill text-danger me-1"></span>
         </button>
+        </div>
     </div>
+    
+    
 
-</div>
-<div class="container mt-4">
-    <div class="row">
-
-        <div class="col-12 border border-1 p-1 showBase">
-            <div class="d-flex justify-content-between">
-    
-                <div>
-                    <p class="text-white">نام جایگاه : {{ station.name }}</p>
-    
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12 border border-1  showBase">
+                <p class="text-white"><small> - نام جایگاه : {{ station.name }}</small></p>
+                <div class="text-white ms-1">
+                    <p><small> - دوره کنترل : </small></p>
+                    <p class="mt-1">از  <small> [ {{ station.start_date }} ] تا [ {{ station.end_date }} ] <small> </p>
+                    <p class="text-white me-3 mt-1">- کنترل کننده:<p> 
+                    <p class="text-white me-3">- تاریخ بازدید:</p>
+                    <p class="text-white me-3">- ساعت : </p>
                 </div>
-    
-                <div>
-                <p class="text-white me-5"> تاریخ بازدید:</p>
-                <p class="text-white me-5"><strong>ساعت:</strong> ...</p>
-                </div>
-    
-            </div>
-            
-            <div class="text-white">
-                <p><strong>دوره کنترل :</strong>  از تاریخ : {{ station.start_date }} <span>لغایت : {{ station.end_date }}</span></p>
-                <p><strong>کنترل کننده :</strong> {{ station.controller }} </p>
+                
+        
+                
             </div>
         </div>
+    </div>
     
 
     <div class="col-12 col-md-6 showAll showBoth showFuel">
@@ -90,7 +85,8 @@
     <table>
         <thead>
             <tr>
-                <th colspan="4">گزارش عملیات بنزین</th>
+                <th colspan="4"><h6 class="text-start text-danger  showAll showBoth showGaz "><small><i class="bi bi-circle-fill"></i></small></h6>
+                    گزارش عملیات بنزین </th>
             </tr>
         </thead>
         <tbody>
@@ -157,7 +153,7 @@
     <table>
         <thead>
             <tr>
-                <th colspan="4">گزارش عملیات نفتگاز</th>
+                <th colspan="4"><h6 class="text-start text-warning  showAll showBoth showGaz "><small><i class="bi bi-circle-fill"></i></small></h6>  گزارش عملیات نفتگاز</th>
             </tr>
         </thead>
         <tbody>
