@@ -246,11 +246,11 @@ document.getElementById('gasoline_nozzles').addEventListener('change', function(
 
             <div class="form-group">
                 <input type="number" step="0.01" id="gasoline_nozzle_start_totalizer_${i}" name="gasoline_nozzle_start_totalizer_${i}" placeholder="مقدار توتالیزو ابتدا دوره نازل بنزین شماره " class="" required>
-                <label for="gasoline_nozzle_start_totalizer_${i}">مقدار توتالیزو ابتدا دوره نازل بنزین شماره  ${i + 1}</label>
+                <label for="gasoline_nozzle_start_totalizer_${i}"> توتالایزر ابتدا دوره نازل بنزین شماره  ${i + 1}</label>
             </div>
             <div class="form-group">
                 <input type="number" step="0.01" id="gasoline_nozzle_end_totalizer_${i}" name="gasoline_nozzle_end_totalizer_${i}" placeholder="مقدار توتالیزو انتها دوره نازل بنزین شماره "  class="" required>
-                <label for="gasoline_nozzle_end_totalizer_${i}">مقدار توتالیزو انتها دوره نازل بنزین شماره  ${i + 1}</label>
+                <label for="gasoline_nozzle_end_totalizer_${i}" توتالایزر انتها دوره نازل بنزین شماره  ${i + 1}</label>
             </div>
         `;
     }
