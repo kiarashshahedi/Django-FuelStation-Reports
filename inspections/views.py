@@ -79,33 +79,6 @@ def create_station(request):
 
     return render(request, 'create_station.html')
 
-# def add_tanks(request, station_id):
-#     station = FuelStation.objects.get(id=station_id)
-#     if request.method == 'POST':
-#         for i in range(station.gasoline_tanks):
-#             amount = float(request.POST.get(f'gasoline_tank_{i}'))
-#             Tank.objects.create(station=station, type='gasoline', amount=amount)
-#         for i in range(station.gas_tanks):
-#             amount = float(request.POST.get(f'gas_tank_{i}'))
-#             Tank.objects.create(station=station, type='gas', amount=amount)
-#         return redirect('add_nozzles', station_id=station.id)
-#     return render(request, 'add_tanks.html', {'station': station})
-
-# def add_nozzles(request, station_id):
-#     station = FuelStation.objects.get(id=station_id)
-        
-#     if request.method == 'POST':
-#         for i in range(station.gasoline_nozzles):
-#             start_totalizer = float(request.POST.get(f'gasoline_nozzle_start_totalizer_{i}'))
-#             end_totalizer = float(request.POST.get(f'gasoline_nozzle_end_totalizer_{i}'))
-#             Nozzle.objects.create(station=station, type='gasoline', start_totalizer=start_totalizer, end_totalizer=end_totalizer)
-#         for i in range(station.gas_nozzles):
-#             start_totalizer = float(request.POST.get(f'gas_nozzle_start_totalizer_{i}'))
-#             end_totalizer = float(request.POST.get(f'gas_nozzle_end_totalizer_{i}'))
-#             Nozzle.objects.create(station=station, type='gas', start_totalizer=start_totalizer, end_totalizer=end_totalizer)
-#         return redirect('station_detail', station_id=station.id)
-#     return render(request, 'add_nozzles.html', {'station': station})
-
 def station_detail(request, station_id):
     station = get_object_or_404(FuelStation, id=station_id)
     
@@ -166,7 +139,10 @@ def station_detail(request, station_id):
     gas_status = 'کسری' if gas_difference < 0 else 'سرک'
     
     # MEKANIKI NAZEL HA * 0.0045 - TAFAVOT FOROSH VA MOJODI(RESIDE)
-    qire_mojaz = (gasoline_mechanical_sales * 0.0045) - gasoline_difference
+    if gasoline_difference < 0:
+        qire_mojaz = (gasoline_mechanical_sales * 0.0045) - gasoline_difference
+    else:
+        qire_mojaz = 0
     
     # TAFAVOT ELECTRONIKI VA MEKANIKI
     electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
@@ -207,40 +183,87 @@ def station_detail(request, station_id):
     return render(request, 'station_detail.html', context)
 
 def get_station_context(station_id):
-    station = FuelStation.objects.get(id=station_id)
-    nozzles = Nozzle.objects.filter(station=station)
-    tanks = Tank.objects.filter(station=station)
+    station = get_object_or_404(FuelStation, id=station_id)
+    
+    gasoline_nozzles = Nozzle.objects.filter(station=station, type='gasoline')
+    gas_nozzles = Nozzle.objects.filter(station=station, type='gas')
 
-    gasoline_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gasoline')
-    gas_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gas')
+    # Prepare nozzle sales data
+    gasoline_nozzle_sales = []
+    for nozzle in gasoline_nozzles:
+        each_nozzle_sale = nozzle.end_totalizer - nozzle.start_totalizer
+        gasoline_nozzle_sales.append({
+            'nozzle': nozzle,
+            'sale': each_nozzle_sale
+        })
 
-    gasoline_end_inventory = sum(t.amount for t in tanks if t.type == 'gasoline')
-    gas_end_inventory = sum(t.amount for t in tanks if t.type == 'gas')
+    gas_nozzle_sales = []
+    for nozzle in gas_nozzles:
+        each_nozzle_sale = nozzle.end_totalizer - nozzle.start_totalizer
+        gas_nozzle_sales.append({
+            'nozzle': nozzle,
+            'sale': each_nozzle_sale
+        })
+        
+        
+        
+    gasoline_tanks = Tank.objects.filter(station=station, type='gasoline')
+    gas_tanks = Tank.objects.filter(station=station, type='gas')
 
+    print(f"Gasoline tanks: {gasoline_tanks}")
+    print(f"Gas tanks: {gas_tanks}")
+
+
+    # FOROSH MEKANIKI NAZEL HA
+    gasoline_mechanical_sales = station.gasoline_mechanical_sales()
+    gas_mechanical_sales = station.gas_mechanical_sales()
+
+    # JAME HAMEYE MAKHAZEN
+    gasoline_end_inventory = station.total_tank_amount()  
+    gas_end_inventory = station.total_gs_tank_amount()  
+    
+    # EBTEDA DORE + RESIDE = 0+100000
     total_gasoline_inventory = station.gasoline_beginning + station.gasoline_received
     total_gas_inventory = station.gas_beginning + station.gas_received
 
+    # 100000 - MOJODI MAKHAZEN
     gasoline_outflow = total_gasoline_inventory - gasoline_end_inventory
     gas_outflow = total_gas_inventory - gas_end_inventory
 
-    gasoline_after_sales = total_gasoline_inventory - gasoline_mechanical_sales
-    gas_after_sales = total_gas_inventory - gas_mechanical_sales
+    # MEKANIKI - KHAREJ SHODE
+    gasoline_difference = gasoline_mechanical_sales  -  gasoline_outflow 
+    gas_difference = gas_mechanical_sales - gas_outflow
 
-    gasoline_difference = gasoline_after_sales - gasoline_end_inventory
-    gas_difference = gas_after_sales - gas_end_inventory
 
-    gasoline_status = 'کسری' if gasoline_difference > 0 else 'سرک'
-    gas_status = 'کسری' if gas_difference > 0 else 'سرک'
 
-    qire_mojaz = gasoline_mechanical_sales * 0.0045 - gasoline_difference
+
+    # AGE MOSBAT BOD SARAK AGE MANFI BOD KASRI
+    gasoline_status = 'کسری' if gasoline_difference < 0 else 'سرک'
+    gas_status = 'کسری' if gas_difference < 0 else 'سرک'
+    
+    # MEKANIKI NAZEL HA * 0.0045 - TAFAVOT FOROSH VA MOJODI(RESIDE)
+    if gasoline_difference < 0:
+        qire_mojaz = (gasoline_mechanical_sales * 0.0045) - gasoline_difference
+    else:
+        qire_mojaz = 0
+    
+    # TAFAVOT ELECTRONIKI VA MEKANIKI
     electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
     electronic_mechanical_discrepancy_gas = station.electronic_gas_sales - gas_mechanical_sales
 
+    # MEQDAR TOTALIZER HAR NOZEL 
     
+    
+
     context = {
         'station': station,
-        'nozzles': nozzles,
-        'tanks': tanks,
+        'gasoline_nozzles': gasoline_nozzles,
+        'gas_nozzles': gas_nozzles,
+        'gasoline_nozzle_sales': gasoline_nozzle_sales,
+        'gas_nozzle_sales': gas_nozzle_sales,
+        
+        'gasoline_tanks': gasoline_tanks,
+        'gas_tanks': gas_tanks,        
         'gasoline_mechanical_sales': gasoline_mechanical_sales,
         'gas_mechanical_sales': gas_mechanical_sales,
         'gasoline_end_inventory': gasoline_end_inventory,
@@ -249,84 +272,26 @@ def get_station_context(station_id):
         'total_gas_inventory': total_gas_inventory,
         'gasoline_outflow': gasoline_outflow,
         'gas_outflow': gas_outflow,
-        'gasoline_after_sales': gasoline_after_sales,
-        'gas_after_sales': gas_after_sales,
+        # 'gasoline_after_sales': gasoline_after_sales,
+        # 'gas_after_sales': gas_after_sales,
         'gasoline_difference': gasoline_difference,
         'gas_difference': gas_difference,
         'gasoline_status': gasoline_status,
         'gas_status': gas_status,
-        'qire_mojaz' : qire_mojaz,
+        'qire_mojaz': qire_mojaz,
         'electronic_mechanical_discrepancy': electronic_mechanical_discrepancy,
-        'electronic_mechanical_discrepancy_gas': electronic_mechanical_discrepancy_gas
-
+        'electronic_mechanical_discrepancy_gas': electronic_mechanical_discrepancy_gas,
     }
 
     return context
 
 def generate_pdf(request, station_id):
     context = get_station_context(station_id)
-    html_string = render_to_string('pdf_template.html', context)
+    html_string = render_to_string('station_detail.html', context)
     html = HTML(string=html_string)
     pdf = html.write_pdf()
 
     response = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; filename="station.pdf"'
+    response['Content-Disposition'] = 'inline; filename="stations.pdf"'
     return response
 
-def latest_data(request, station_id):
-    station = get_object_or_404(FuelStation, id=station_id)
-    nozzles = Nozzle.objects.filter(station=station)
-    tanks = Tank.objects.filter(station=station)
-
-    gasoline_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gasoline')
-    gas_mechanical_sales = sum(n.mechanical_sales() for n in nozzles if n.type == 'gas')
-
-    gasoline_end_inventory = sum(t.amount for t in tanks if t.type == 'gasoline')
-    gas_end_inventory = sum(t.amount for t in tanks if t.type == 'gas')
-
-    total_gasoline_inventory = station.gasoline_beginning + station.gasoline_received
-    total_gas_inventory = station.gas_beginning + station.gas_received
-
-    gasoline_outflow = total_gasoline_inventory - gasoline_end_inventory
-    gas_outflow = total_gas_inventory - gas_end_inventory
-
-    gasoline_after_sales = total_gasoline_inventory - gasoline_mechanical_sales
-    gas_after_sales = total_gas_inventory - gas_mechanical_sales
-
-    gasoline_difference = gasoline_after_sales - gasoline_end_inventory
-    gas_difference = gas_after_sales - gas_end_inventory
-
-    gasoline_status = 'کسری' if gasoline_difference > 0 else 'سرک'
-    gas_status = 'کسری' if gas_difference > 0 else 'سرک'
-    
-    qire_mojaz = gasoline_mechanical_sales * 0.0045 - gasoline_difference
-    electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
-
-    qire_mojaz = gasoline_mechanical_sales * 0.0045 - gasoline_difference
-    electronic_mechanical_discrepancy = station.electronic_gasoline_sales - gasoline_mechanical_sales
-    electronic_mechanical_discrepancy_gas = station.electronic_gas_sales - gas_mechanical_sales
-    
-    context = {
-        'station': station,
-        'nozzles': nozzles,
-        'tanks': tanks,
-        'gasoline_mechanical_sales': gasoline_mechanical_sales,
-        'gas_mechanical_sales': gas_mechanical_sales,
-        'gasoline_end_inventory': gasoline_end_inventory,
-        'gas_end_inventory': gas_end_inventory,
-        'total_gasoline_inventory': total_gasoline_inventory,
-        'total_gas_inventory': total_gas_inventory,
-        'gasoline_outflow': gasoline_outflow,
-        'gas_outflow': gas_outflow,
-        'gasoline_after_sales': gasoline_after_sales,
-        'gas_after_sales': gas_after_sales,
-        'gasoline_difference': gasoline_difference,
-        'gas_difference': gas_difference,
-        'gasoline_status': gasoline_status,
-        'gas_status': gas_status,
-        'qire_mojaz' : qire_mojaz,
-        'electronic_mechanical_discrepancy': electronic_mechanical_discrepancy,
-        'electronic_mechanical_discrepancy_gas': electronic_mechanical_discrepancy_gas
-    }
-
-    return render(request, 'latest_data.html', context)
