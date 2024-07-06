@@ -178,20 +178,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-    // JavaScript for dynamically adding tank and nozzle fields
-    document.getElementById('gasoline_tanks').addEventListener('change', function() {
-        var tankCount = parseInt(this.value);
-        var container = document.getElementById('gasoline-tanks');
-        container.innerHTML = '';
-        for (var i = 1; i <= tankCount; i++) {
-            container.innerHTML += `
-                <div class="form-group">
-                    <input type="number" step="0.01" id="gasoline_tank_${i}" name="gasoline_tank_${i}" placeholder="موجوی مخزن بنزین ${i}" required>
-                    <label for="gasoline_tank_${i}">موجوی مخزن بنزین ${i}</label>
-                </div>
-            `;
-        }
-    });
+// JavaScript for dynamically adding tank and nozzle fields
+document.getElementById('gasoline_tanks').addEventListener('change', function() {
+    var tankCount = parseInt(this.value);
+    var container = document.getElementById('gasoline-tanks');
+    container.innerHTML = '';
+    for (var i = 1; i <= tankCount; i++) {
+        container.innerHTML += `
+            <div class="form-group">
+                <input type="number" step="0.01" id="gasoline_tank_${i}" name="gasoline_tank_${i}" placeholder="موجوی مخزن بنزین ${i} " required>
+                <label for="gasoline_tank_${i}">موجوی مخزن بنزین  ${i} </label>
+            </div>
+        `;
+    }
+});
     
     document.getElementById('gas_tanks').addEventListener('change', function() {
         var tankCount = parseInt(this.value);
