@@ -248,7 +248,7 @@ document.getElementById('gasoline_nozzles').addEventListener('change', function(
     // Create and append the input fields dynamically with result display
     for (var i = 0; i < nozzleCount; i++) {
         container.innerHTML += `
-            <h6 class="text-start text-danger mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}</h6>
+            <h6 class="text-start text-danger mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}  بنزین </h6>
             <div class="container-fluid ">
                 <div class="row">
                     <div class="col-6 col-md-4">
@@ -291,7 +291,7 @@ document.getElementById('gas_nozzles').addEventListener('change', function() {
     // Create and append the input fields dynamically with result display
     for (var i = 0; i < nozzleCount; i++) {
         container.innerHTML += `
-            <h6 class="text-start text-warning mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}</h6>
+            <h6 class="text-start text-warning mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}  نفتگاز </h6>
             <div class="container-fluid ">
                 <div class="row">
                     <div class="col-6 col-md-4">
