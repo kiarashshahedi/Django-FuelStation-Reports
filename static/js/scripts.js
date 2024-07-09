@@ -206,17 +206,18 @@ document.getElementById('gasoline_tanks').addEventListener('change', function() 
             `;
         }
     });
+    // Attach event listeners to 'change' events for the dropdowns
 document.getElementById('gasoline_nozzles').addEventListener('change', function() {
     var nozzleCount = parseInt(this.value);
     var container = document.getElementById('gasoline-nozzles');
     container.innerHTML = '';
+
+    // Create and append the input fields dynamically
     for (var i = 1; i <= nozzleCount; i++) {
         container.innerHTML += `
             <div class="form-group">
-            
                 <input type="number" step="0.01" id="gasoline_nozzle_${i}" name="gasoline_nozzle_${i}" placeholder="مقدار نازل بنزین ${i} " required>
-                <label for="gasoline_nozzle_${i}">مقدار نازل بنزین  ${i} </label>
-
+                <label for="gasoline_nozzle_${i}">مقدار نازل بنزین ${i} </label>
             </div>
         `;
     }
@@ -226,6 +227,8 @@ document.getElementById('gas_nozzles').addEventListener('change', function() {
     var nozzleCount = parseInt(this.value);
     var container = document.getElementById('gas-nozzles');
     container.innerHTML = '';
+
+    // Create and append the input fields dynamically
     for (var i = 1; i <= nozzleCount; i++) {
         container.innerHTML += `
             <div class="form-group">
@@ -236,48 +239,125 @@ document.getElementById('gas_nozzles').addEventListener('change', function() {
     }
 });
 
+// For gasoline nozzles
 document.getElementById('gasoline_nozzles').addEventListener('change', function() {
     var nozzleCount = parseInt(this.value);
     var container = document.getElementById('gasoline-nozzlesT');
     container.innerHTML = '';
+
+    // Create and append the input fields dynamically with result display
     for (var i = 0; i < nozzleCount; i++) {
         container.innerHTML += `
-    <h5 class="text-start text-danger mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
-
-            <div class="form-group">
-                <input type="number" step="0.01" id="gasoline_nozzle_start_totalizer_${i}" name="gasoline_nozzle_start_totalizer_${i}" placeholder=" توتالیزو ابتدا دوره نازل بنزین شماره " class="" required>
-                <label for="gasoline_nozzle_start_totalizer_${i}"> توتالایزر ابتدا دوره نازل بنزین شماره  ${i + 1}</label>
-            </div>
-            <div class="form-group">
-                <input type="number" step="0.01" id="gasoline_nozzle_end_totalizer_${i}" name="gasoline_nozzle_end_totalizer_${i}" placeholder=" توتالیزو انتها دوره نازل بنزین شماره "  class="" required>
-                <label for="gasoline_nozzle_end_totalizer_${i}"> توتالایزر انتها دوره نازل بنزین شماره  ${i + 1}</label>
+            <h6 class="text-start text-danger mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}</h6>
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="col-6 col-md-4">
+                        <div class="form-group">
+                            <input type="number" step="0.01" id="gasoline_nozzle_start_totalizer_${i}" name="gasoline_nozzle_start_totalizer_${i}" placeholder=" " class="" required>
+                            <label for="gasoline_nozzle_start_totalizer_${i}"><small> توتالایزر ابتدا </small></label>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="form-group">
+                            <input type="number" step="0.01" id="gasoline_nozzle_end_totalizer_${i}" name="gasoline_nozzle_end_totalizer_${i}" placeholder=" " class="" required>
+                            <label for="gasoline_nozzle_end_totalizer_${i}"><small> توتالایزر انتها </small></label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 glasss mt-3">
+                        <div class="result text-white fw-bold" id="gasoline_result_${i}">0</div>
+                    </div>
+                </div>
             </div>
         `;
     }
+
+    // Attach event listeners to input fields to update results on input
+    for (var i = 0; i < nozzleCount; i++) {
+        document.getElementById(`gasoline_nozzle_start_totalizer_${i}`).addEventListener('input', function(event) {
+            updateGasolineResults(event.target.id);
+        });
+        document.getElementById(`gasoline_nozzle_end_totalizer_${i}`).addEventListener('input', function(event) {
+            updateGasolineResults(event.target.id);
+        });
+    }
 });
 
+// For gas nozzles
 document.getElementById('gas_nozzles').addEventListener('change', function() {
     var nozzleCount = parseInt(this.value);
     var container = document.getElementById('gas-nozzlesT');
     container.innerHTML = '';
+
+    // Create and append the input fields dynamically with result display
     for (var i = 0; i < nozzleCount; i++) {
         container.innerHTML += `
-    <h5 class="text-start text-warning mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
-            
-            <div class="form-group">
-                <input type="number" step="0.01" id="gas_nozzle_start_totalizer_${i}" name="gas_nozzle_start_totalizer_${i}" placeholder=" توتالیزو ابتدا دوره نازل نفتگاز شماره " class="" required>
-                <label for="gas_nozzle_start_totalizer_${i}"> توتالیزو ابتدا دوره نازل نفتگاز شماره  ${i + 1}</label>
-            </div>
-            <div class="form-group">
-                <input type="number" step="0.01" id="gas_nozzle_end_totalizer_${i}" name="gas_nozzle_end_totalizer_${i}" placeholder=" توتالیزو انتها دوره نازل نفتگاز شماره " class="" required>
-                <label for="gas_nozzle_end_totalizer_${i}"> توتالیزو انتها دوره نازل نفتگاز شماره  ${i + 1}</label>
+            <h6 class="text-start text-warning mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}</h6>
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="col-6 col-md-4">
+                        <div class="form-group">
+                            <input type="number" step="0.01" id="gas_nozzle_start_totalizer_${i}" name="gas_nozzle_start_totalizer_${i}" placeholder=" " class="" required>
+                            <label for="gas_nozzle_start_totalizer_${i}"><small> توتالایزر ابتدا </small></label>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="form-group">
+                            <input type="number" step="0.01" id="gas_nozzle_end_totalizer_${i}" name="gas_nozzle_end_totalizer_${i}" placeholder=" " class="" required>
+                            <label for="gas_nozzle_end_totalizer_${i}"><small> توتالایزر انتها </small></label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 glasss mt-3">
+                        <div class="result text-white fw-bold" id="gas_result_${i}">0</div>
+                    </div>
+                </div>
             </div>
         `;
     }
+
+    // Attach event listeners to input fields to update results on input
+    for (var i = 0; i < nozzleCount; i++) {
+        document.getElementById(`gas_nozzle_start_totalizer_${i}`).addEventListener('input', function(event) {
+            updateGasResults(event.target.id);
+        });
+        document.getElementById(`gas_nozzle_end_totalizer_${i}`).addEventListener('input', function(event) {
+            updateGasResults(event.target.id);
+        });
+    }
 });
 
+// Function to update result based on inputs for gasoline 
+function updateGasolineResults(inputId) {
+    const i = inputId.split('_')[4]; // Extracting the index from the input ID
+    const startInput = document.getElementById(`gasoline_nozzle_start_totalizer_${i}`);
+    const endInput = document.getElementById(`gasoline_nozzle_end_totalizer_${i}`);
+    const resultElement = document.getElementById(`gasoline_result_${i}`);
 
-// Initialize Persian Date Picker
+    const startValue = parseFloat(startInput.value) || 0;
+    const endValue = parseFloat(endInput.value) || 0;
+
+    const result = endValue - startValue;
+
+    resultElement.textContent = `${result.toFixed(2)}`;
+}
+
+// Function to update result based on inputs for gas
+function updateGasResults(inputId) {
+    const i = inputId.split('_')[4]; // Extracting the index from the input ID
+    const startInput = document.getElementById(`gas_nozzle_start_totalizer_${i}`);
+    const endInput = document.getElementById(`gas_nozzle_end_totalizer_${i}`);
+    const resultElement = document.getElementById(`gas_result_${i}`);
+
+    const startValue = parseFloat(startInput.value) || 0;
+    const endValue = parseFloat(endInput.value) || 0;
+
+    const result = endValue - startValue;
+
+    resultElement.textContent = `${result.toFixed(2)}`;
+}
+
+
+
+// Initialize Persian Date Picker --------------------------------------------------------------------------
 $(document).ready(function() {
     // Initialize the Persian Datepicker for start_date and end_date fields
     $("#start_date").persianDatepicker();
