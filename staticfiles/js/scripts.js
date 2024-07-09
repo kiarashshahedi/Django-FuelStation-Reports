@@ -248,22 +248,22 @@ document.getElementById('gasoline_nozzles').addEventListener('change', function(
     // Create and append the input fields dynamically with result display
     for (var i = 0; i < nozzleCount; i++) {
         container.innerHTML += `
-            <h5 class="text-start text-danger mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
-            <div class="container mt-3">
-                <div class="row align-items-center">
-                    <div class="col">
+            <h6 class="text-start text-danger mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}</h6>
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="col-6 col-md-4">
                         <div class="form-group">
-                            <input type="number" step="0.01" id="gasoline_nozzle_start_totalizer_${i}" name="gasoline_nozzle_start_totalizer_${i}" placeholder=" توتالایزر ابتدا دوره نازل بنزین شماره " class="" required>
-                            <label for="gasoline_nozzle_start_totalizer_${i}">توتالایزر ابتدا نازل ${i + 1}</label>
+                            <input type="number" step="0.01" id="gasoline_nozzle_start_totalizer_${i}" name="gasoline_nozzle_start_totalizer_${i}" placeholder=" " class="" required>
+                            <label for="gasoline_nozzle_start_totalizer_${i}"><small> توتالایزر ابتدا </small></label>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-6 col-md-4">
                         <div class="form-group">
-                            <input type="number" step="0.01" id="gasoline_nozzle_end_totalizer_${i}" name="gasoline_nozzle_end_totalizer_${i}" placeholder=" توتالایزر انتها دوره نازل بنزین شماره " class="" required>
-                            <label for="gasoline_nozzle_end_totalizer_${i}"> توتالایزر انتها نازل ${i + 1}</label>
+                            <input type="number" step="0.01" id="gasoline_nozzle_end_totalizer_${i}" name="gasoline_nozzle_end_totalizer_${i}" placeholder=" " class="" required>
+                            <label for="gasoline_nozzle_end_totalizer_${i}"><small> توتالایزر انتها </small></label>
                         </div>
                     </div>
-                    <div class="col-auto glasss">
+                    <div class="col-12 col-md-4 glasss mt-3">
                         <div class="result text-white fw-bold" id="gasoline_result_${i}">0</div>
                     </div>
                 </div>
@@ -291,23 +291,23 @@ document.getElementById('gas_nozzles').addEventListener('change', function() {
     // Create and append the input fields dynamically with result display
     for (var i = 0; i < nozzleCount; i++) {
         container.innerHTML += `
-            <h5 class="text-start text-warning mt-3 ms-2 "><i class="bi bi-circle-fill"></i></h5>
-            <div class="container mt-3">
-                <div class="row align-items-center">
-                    <div class="col">
+            <h6 class="text-start text-warning mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}</h6>
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="col-6 col-md-4">
                         <div class="form-group">
-                            <input type="number" step="0.01" id="gas_nozzle_start_totalizer_${i}" name="gas_nozzle_start_totalizer_${i}" placeholder=" توتالایزر ابتدا دوره نازل گاز شماره " class="" required>
-                            <label for="gas_nozzle_start_totalizer_${i}"> توتالایزر ابتدا نازل ${i + 1}</label>
+                            <input type="number" step="0.01" id="gas_nozzle_start_totalizer_${i}" name="gas_nozzle_start_totalizer_${i}" placeholder=" " class="" required>
+                            <label for="gas_nozzle_start_totalizer_${i}"><small> توتالایزر ابتدا </small></label>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-6 col-md-4">
                         <div class="form-group">
-                            <input type="number" step="0.01" id="gas_nozzle_end_totalizer_${i}" name="gas_nozzle_end_totalizer_${i}" placeholder=" توتالایزر انتها دوره نازل گاز شماره " class="" required>
-                            <label for="gas_nozzle_end_totalizer_${i}"> توتالایزر انتها نازل ${i + 1}</label>
+                            <input type="number" step="0.01" id="gas_nozzle_end_totalizer_${i}" name="gas_nozzle_end_totalizer_${i}" placeholder=" " class="" required>
+                            <label for="gas_nozzle_end_totalizer_${i}"><small> توتالایزر انتها </small></label>
                         </div>
                     </div>
-                    <div class="col-auto glasss">
-                        <div class="result text-white" id="gas_result_${i}">0</div>
+                    <div class="col-12 col-md-4 glasss mt-3">
+                        <div class="result text-white fw-bold" id="gas_result_${i}">0</div>
                     </div>
                 </div>
             </div>
