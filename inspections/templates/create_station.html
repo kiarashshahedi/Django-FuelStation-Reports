@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
+
+<head>
+    <style>
+        #buttonContainer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: bottom 0.3s;
+        }
+    </style>
+</head>
+
 {% block content %}
+
 
 <div class="container  mt-4 px-2">
     <form method="post" id="myForm">
@@ -20,11 +34,10 @@
 
             <p class="text-center text-white">لطفا یکی از گزینه های زیر انتخاب کنید</p>
             <div class="button-container d-grid">
-
                 <button onclick="showGas()" class="btn glasss btn-gas btn btn-outline-info w-100 mt-3 bi bi-circle-fill text-warning">
                     <span onclick="handleClick('button1')" class="ms-1 text-white">نفتگاز</span>
                 </button>
-
+            
                 <button onclick="showPetrol()" class="btn glasss btn-petrol btn btn-outline-info w-100 mt-3 bi bi-circle-fill text-danger">
                     <span onclick="handleClick('button2')" class="ms-1 text-white">بنزین</span>
                 </button>
@@ -43,13 +56,18 @@
             <div class="form-group showBase">
                 <div id="start_date_container" class="datepicker-container"></div>
                 <label for="start_date">تاریخ شروع (شمسی):</label>
-                <input type="data" id="start_date" name="start_date" required placeholder="YYYY-MM-DD"><br>            </div>
-        
+                <input type="text" id="start_date" name="start_date" required placeholder="YYYY-MM-DD"><br>
+            </div>
+    
             <div class="form-group showBase">
                 <div id="end_date_container" class="datepicker-container"></div>
                 <label for="end_date">تاریخ پایان (شمسی):</label>
-                <input type="data" id="end_date" name="end_date" required placeholder="YYYY-MM-DD"><br>
+                <input type="text" id="end_date" name="end_date" required placeholder="YYYY-MM-DD"><br>
             </div>
+    
+            <input type="hidden" id="start_date_gregorian" name="start_date_gregorian">
+            <input type="hidden" id="end_date_gregorian" name="end_date_gregorian">
+    
         </div>
         
         <div class="page " id="page5">
@@ -168,10 +186,10 @@
         </div>
 
         <div class="page" id="page10">
-            <h5 class="text-start text-white mt-3 ms-2 showBase"> نام بازرس </h5>
+            <h5 class="text-start text-white mt-3 ms-2 showBase"> نام کنترل کننده: </h5>
             <div  class="form-group text-start   ">
-                <input type="text" class="" id="controller" name="controller"  placeholder=" نام بازرس " required>
-                <label  class="" for="controller"> نام بازرس </label>
+                <input type="text" class="" id="controller" name="controller"  placeholder=" نام کنترل کننده: " required>
+                <label  class="" for="controller"> نام کنترل کننده: </label>
             </div>
             <div class="mb-3 mt-4 py-2">
                
@@ -184,49 +202,26 @@
 
 
 <!-- Fixed bottom options -->
-<div class="fixed-bottom fixed-bottom-options mb-3 pt-5">
+<div class="fixed-bottom fixed-bottom-options mb-3 pt-5" id="buttonContainer">
     <div class="container-fluid">
         <div class="row text-center d-flex justify-content-center">
-
-            <div  id="nextButton"   class="col-5 d-flex glasss justify-content-center btn btn-outline-success mx-2 ">
+            <div id="nextButton" class="col-5 d-flex glasss justify-content-center btn btn-outline-success mx-2">
                 <div>
-                    <span class=" text-colorforbuylow fw-bold"> ادامه </span>
+                    <span class="text-colorforbuylow fw-bold"> ادامه </span>
                 </div>
             </div>
-
             <div id="prevButton" class="col-5 d-flex glasss justify-content-center btn btn-outline-danger mx-2">
                 <div>
                     <span class="text-colorforbuylow"> بازگشت </span>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
+<!-- SCRIPTS -->
+
 <script>
-    // انتخاب تمام عناصر با کلاس showFuel
-    document.querySelectorAll('.MAX').forEach(function(input) {
-        // اضافه کردن رویداد input به هر ورودی
-        input.addEventListener('input', function() {
-            let min = parseInt(input.min);
-            let max = parseInt(input.max);
-            let step = parseInt(input.step);
-            let value = parseInt(input.value);
-            
-            if (value < min) {
-                input.value = min;
-            } else if (value > max) {
-                input.value = max;
-            } else if ((value - min) % step !== 0) {
-                // در صورتی که مقدار وارد شده با step هماهنگ نباشد، آن را به نزدیکترین مقدار صحیح تنظیم کنید
-                input.value = Math.round((value - min) / step) * step + min;
-            }
-        });
-    });
-    {% comment %} function handleClick(fuelType) {
-            localStorage.setItem('selectedFuel', fuelType);
-            window.location.href = "{% url ' station_detail' %}";
-        } {% endcomment %}
+    
 </script>
 {% endblock %}

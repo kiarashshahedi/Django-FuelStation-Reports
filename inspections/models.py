@@ -1,7 +1,7 @@
 from django.db import models
-import django_jalali.db.models as jmodels
-from django.db import transaction
 from django.db.models import Sum
+import django_jalali.db.models as jmodels
+
 
 
 
@@ -24,10 +24,13 @@ class FuelStation(models.Model):
     electronic_gasoline_sales = models.FloatField()
     electronic_gas_sales = models.FloatField()
     
-    start_date = jmodels.jDateField()
-    end_date = jmodels.jDateField()
+    start_date = models.TextField(max_length='30')
+    end_date = models.TextField(max_length='30')
     
+    time = models.TimeField(auto_now=True)
     controller = models.TextField(blank=True, null=True)
+    created_at = jmodels.jDateField(auto_now_add=True)
+
 
     def __str__(self):
         return self.name

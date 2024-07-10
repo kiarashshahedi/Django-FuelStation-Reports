@@ -1,3 +1,6 @@
+
+// SHOW gasoline - gas - both ---------------------------------------------------------------------------------------
+
 let BASE = document.querySelectorAll('.showBase');
 function showGas() {
     let gasElements = document.querySelectorAll('.showGaz');
@@ -11,20 +14,17 @@ function showGas() {
     });
     BASE.forEach(element => {
         element.classList.remove('showBase');
-        element.classList.add('gg')
+        element.classList.add('gg');
     });
     
-    BASE.forEach(element => {
-        element.classList.remove('showBase');
-        element.classList.add('gg')
-
-    });
     fuelElements.forEach(element => {
         element.style.display = 'none';
         if (element.tagName === 'INPUT') {
             element.value = '0';
         }
     });
+
+    localStorage.setItem('fuelType', 'gas');
 }
 
 function showPetrol() {
@@ -39,21 +39,17 @@ function showPetrol() {
     });
     BASE.forEach(element => {
         element.classList.remove('showBase');
-        element.classList.add('gg')
-
+        element.classList.add('gg');
     });
     
-    BASE.forEach(element => {
-        element.classList.remove('showBase');
-        element.classList.add('gg')
-
-    });
     fuelElements.forEach(element => {
         element.style.display = 'block';
         if (element.tagName === 'INPUT') {
             element.value = '';
         }
     });
+
+    localStorage.setItem('fuelType', 'petrol');
 }
 
 function showBoth() {
@@ -65,7 +61,8 @@ function showBoth() {
         if (element.tagName === 'INPUT') {
             element.value = '0';
         }
-    });fuelElements.forEach(element => {
+    });
+    fuelElements.forEach(element => {
         element.style.display = 'none';
         if (element.tagName === 'INPUT') {
             element.value = '0';
@@ -73,16 +70,8 @@ function showBoth() {
     });
     BASE.forEach(element => {
         element.classList.remove('showBase');
-        element.classList.add('gg')
-
+        element.classList.add('gg');
     });
-    
-    BASE.forEach(element => {
-        element.classList.remove('showBase');
-        element.classList.add('gg')
-
-    });
-    
     
     gasElements.forEach(element => {
         element.style.display = 'block';
@@ -97,7 +86,11 @@ function showBoth() {
             element.value = '';
         }
     });
+
+    localStorage.setItem('fuelType', 'both');
 }
+// NEXT and PREVIEW buttons --------------------------------------------------------------------------------------
+
 document.addEventListener('DOMContentLoaded', () => {
     const pages = document.querySelectorAll('.page');
     let nextButton = document.getElementById('nextButton');
@@ -178,7 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// JavaScript for dynamically adding tank and nozzle fields
+// JavaScript for dynamically adding tank and nozzle fields ---------------------------------------------------------
+
 document.getElementById('gasoline_tanks').addEventListener('change', function() {
     var tankCount = parseInt(this.value);
     var container = document.getElementById('gasoline-tanks');
@@ -206,7 +200,7 @@ document.getElementById('gasoline_tanks').addEventListener('change', function() 
             `;
         }
     });
-    // Attach event listeners to 'change' events for the dropdowns
+    // Attach event listeners to 'change' events for the dropdowns 
 document.getElementById('gasoline_nozzles').addEventListener('change', function() {
     var nozzleCount = parseInt(this.value);
     var container = document.getElementById('gasoline-nozzles');
@@ -222,6 +216,7 @@ document.getElementById('gasoline_nozzles').addEventListener('change', function(
         `;
     }
 });
+// NOZZLE number count -------------------------------------------------------------------------------------------
 
 document.getElementById('gas_nozzles').addEventListener('change', function() {
     var nozzleCount = parseInt(this.value);
@@ -239,7 +234,8 @@ document.getElementById('gas_nozzles').addEventListener('change', function() {
     }
 });
 
-// For gasoline nozzles
+// For gasoline nozzles mount --------------------------------------------------------------------------------------
+
 document.getElementById('gasoline_nozzles').addEventListener('change', function() {
     var nozzleCount = parseInt(this.value);
     var container = document.getElementById('gasoline-nozzlesT');
@@ -248,7 +244,7 @@ document.getElementById('gasoline_nozzles').addEventListener('change', function(
     // Create and append the input fields dynamically with result display
     for (var i = 0; i < nozzleCount; i++) {
         container.innerHTML += `
-            <h6 class="text-start text-danger mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}</h6>
+            <h6 class="text-start text-danger mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}  بنزین </h6>
             <div class="container-fluid ">
                 <div class="row">
                     <div class="col-6 col-md-4">
@@ -282,7 +278,8 @@ document.getElementById('gasoline_nozzles').addEventListener('change', function(
     }
 });
 
-// For gas nozzles
+// For gas nozzles amount --------------------------------------------------------------------------------------------------
+
 document.getElementById('gas_nozzles').addEventListener('change', function() {
     var nozzleCount = parseInt(this.value);
     var container = document.getElementById('gas-nozzlesT');
@@ -291,7 +288,7 @@ document.getElementById('gas_nozzles').addEventListener('change', function() {
     // Create and append the input fields dynamically with result display
     for (var i = 0; i < nozzleCount; i++) {
         container.innerHTML += `
-            <h6 class="text-start text-warning mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}</h6>
+            <h6 class="text-start text-warning mt-4 ms-2 "><i class="bi bi-circle-fill fw-bold"></i> نازل ${i + 1}  نفتگاز </h6>
             <div class="container-fluid ">
                 <div class="row">
                     <div class="col-6 col-md-4">
@@ -325,7 +322,8 @@ document.getElementById('gas_nozzles').addEventListener('change', function() {
     }
 });
 
-// Function to update result based on inputs for gasoline 
+// Function to update result based on inputs for gasoline ------------------------------------------------------------
+
 function updateGasolineResults(inputId) {
     const i = inputId.split('_')[4]; // Extracting the index from the input ID
     const startInput = document.getElementById(`gasoline_nozzle_start_totalizer_${i}`);
@@ -340,7 +338,8 @@ function updateGasolineResults(inputId) {
     resultElement.textContent = `${result.toFixed(2)}`;
 }
 
-// Function to update result based on inputs for gas
+// Function to update result based on inputs for gas ------------------------------------------------------------------
+
 function updateGasResults(inputId) {
     const i = inputId.split('_')[4]; // Extracting the index from the input ID
     const startInput = document.getElementById(`gas_nozzle_start_totalizer_${i}`);
@@ -357,9 +356,99 @@ function updateGasResults(inputId) {
 
 
 
-// Initialize Persian Date Picker --------------------------------------------------------------------------
-$(document).ready(function() {
-    // Initialize the Persian Datepicker for start_date and end_date fields
-    $("#start_date").persianDatepicker();
-    $("#end_date").persianDatepicker();
+// MAX and MIN for numbers input --------------------------------------------------------------------------
+
+document.querySelectorAll('.MAX').forEach(function(input) {
+    // اضافه کردن رویداد input به هر ورودی
+    input.addEventListener('input', function() {
+        let min = parseInt(input.min);
+        let max = parseInt(input.max);
+        let step = parseInt(input.step);
+        let value = parseInt(input.value);
+        
+        if (value < min) {
+            input.value = min;
+        } else if (value > max) {
+            input.value = max;
+        } else if ((value - min) % step !== 0) {
+            // در صورتی که مقدار وارد شده با step هماهنگ نباشد، آن را به نزدیکترین مقدار صحیح تنظیم کنید
+            input.value = Math.round((value - min) / step) * step + min;
+        }
+    });
 });
+
+// تاریخ شمسی -----------------------------------------------------------------------------------------------------
+
+$(document).ready(function() {
+    var startDatePicker = $('#start_date_container').persianDatepicker({
+        observer: true,
+        format: 'YYYY-MM-DD',
+        altField: '#start_date',
+        altFormat: 'YYYY-MM-DD',
+        onSelect: function(unixDate) {
+            var date = new persianDate(unixDate).toGregorian();
+            $('#start_date_gregorian').val(date.format('YYYY-MM-DD'));
+        }
+    }).data('datepicker');
+
+    var endDatePicker = $('#end_date_container').persianDatepicker({
+        observer: true,
+        format: 'YYYY-MM-DD',
+        altField: '#end_date',
+        altFormat: 'YYYY-MM-DD',
+        onSelect: function(unixDate) {
+            var date = new persianDate(unixDate).toGregorian();
+            $('#end_date_gregorian').val(date.format('YYYY-MM-DD'));
+        }
+    }).data('datepicker');
+
+    $('#open_start_date').on('click', function() {
+        startDatePicker.show();
+    });
+
+    $('#close_start_date').on('click', function() {
+        startDatePicker.hide();
+    });
+
+    $('#open_end_date').on('click', function() {
+        endDatePicker.show();
+    });
+
+    $('#close_end_date').on('click', function() {
+        endDatePicker.hide();
+    });
+
+    $('#date-form').on('submit', function() {
+        // همزمان با ارسال فرم، مقدار تاریخ میلادی را تنظیم کنید
+        var startDate = $('#start_date').val();
+        var startDateGregorian = new persianDate(startDate).toGregorian().format('YYYY-MM-DD');
+        $('#start_date_gregorian').val(startDateGregorian);
+
+        var endDate = $('#end_date').val();
+        var endDateGregorian = new persianDate(endDate).toGregorian().format('YYYY-MM-DD');
+        $('#end_date_gregorian').val(endDateGregorian);
+    });
+});
+
+
+
+
+// fix buttom KEYboard ---------------------------------------------------------------------------------------------
+
+function adjustButtonPosition() {
+const buttonContainer = document.getElementById('buttonContainer');
+if (window.visualViewport.height < window.innerHeight) {
+    // Keyboard is open
+    buttonContainer.style.bottom = `${window.innerHeight - window.visualViewport.height}px`;
+} 
+else {
+    // Keyboard is closed
+    buttonContainer.style.bottom = '0';
+}
+}
+
+// Adjust on viewport resize
+window.visualViewport.addEventListener('resize', adjustButtonPosition);
+
+
+// ------------------------------------------------------------------------------------------------------------------

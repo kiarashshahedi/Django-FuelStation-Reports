@@ -1,9 +1,136 @@
+a { text-decoration: none; }
+
 @font-face {
-    font-family: 'Vazir';
-    src: url('/static/fonts/Vazir-Regular.ttf') format('truetype');
+    font-family: 'vazir';
+    src: url('/static/fonts/vazir.ttf') format('truetype');
 }
 
-body {
-    font-family: 'Vazir', sans-serif;
-    direction: rtl;
+.form-group { 
+    position: relative; 
+    padding: 1px 0px; 
+    margin-top: 18px; 
+    width: 100%; 
+    background: rgba(255, 255, 255, 0.2); 
+    border-radius: 15px; 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    color: #fff; 
+    text-align: center; 
+    padding: 15px; 
 }
+
+input { 
+    font-family: inherit; 
+    width: 100%; 
+    border: 0; 
+    border-bottom: 2px solid #252525; 
+    outline: 0; 
+    font-size: 1.1rem; 
+    color: #d6d6d6; 
+    padding: 7px 0; 
+    background: transparent; 
+    transition: border-color 0.2s; 
+}
+
+input::placeholder { 
+    color: transparent; 
+}
+input:placeholder-shown ~ label { 
+    font-size: 1.1rem; 
+    cursor: text; 
+    top: 20px; 
+}
+label { 
+    position: absolute; 
+    top: 0; 
+    display: block; 
+    transition: 0.2s; 
+    font-size: 1rem; 
+    color: #fdfdfd; 
+}
+input:focus ~ label { 
+    position: absolute; 
+    top: 0; 
+    display: block; 
+    transition: 0.2s; 
+    font-size: 1rem; 
+    color: #38ef7d; 
+    font-weight: 700; 
+}
+input:focus { 
+    padding-bottom: 6px; 
+    font-weight: 700; 
+    border-width: 3px; 
+    border-image: linear-gradient(to right, #11998e, #38ef7d); 
+    border-image-slice: 1; 
+}
+.form__field:required, .form__field:invalid { 
+    box-shadow: none; 
+}
+body { 
+    font-family: 'vazir', sans-serif; 
+    margin: 0; 
+    height: 100vh; 
+    background: linear-gradient(270deg, #02007e, #1300c2); 
+    background-size: 400% 400%; 
+    animation: gradientAnimation 3s ease infinite; 
+}
+@keyframes gradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+.Font { 
+    font-family: "ServerName"; 
+}
+.KIANOOBS { 
+    filter: sepia(1) saturate(10000%) hue-rotate(180deg); 
+    filter: brightness(0) invert(1); 
+}
+@font-face {
+    font-family: 'vazir';
+    src: url('/static/fonts/vazir.ttf') format('truetype');
+}
+.button-container { 
+    display: flex; 
+    gap: 10px; }
+.fixed-bottom-options { 
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    padding: 3px; 
+}
+.btn { 
+    padding: 5px 5px; 
+    border: none; 
+    border-radius: 5px; 
+    color: white; 
+    cursor: pointer; 
+    font-size: 16px; 
+    transition: transform 0.3s ease, 
+    background-color 0.3s ease; 
+}
+
+.glasss { 
+    background: rgba(255, 255, 255, 0.2); 
+    border-radius: 15px; 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    border: 1px solid rgb(255, 255, 255); 
+    box-shadow: 0 4px 30px rgba(80, 80, 80, 0.1); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    color: #fff; 
+    text-align: center; 
+    padding: 20px; 
+    font-weight: bold; 
+}
+
+.btn-gas:hover, .btn-petrol:hover, .btn-both:hover { transform: scale(1.1); }
+.showGaz, .showFuel, .showAll, .showBase { display: none; }
+.gg { display: block; }
+.page.active { display: block; }
+.page { display: none; }

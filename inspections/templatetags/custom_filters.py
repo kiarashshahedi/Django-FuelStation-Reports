@@ -1,6 +1,8 @@
-# inspections/templatetags/extras.py
-
 from django import template
+from khayyam import JalaliDate
+
+
+
 
 register = template.Library()
 
@@ -28,3 +30,16 @@ def strip_zero(value):
         return value
     except (ValueError, TypeError):
         return value
+    
+    
+    
+@register.filter
+def to_gregorian(persian_date):
+    if not persian_date:
+        return ''
+    try:
+        j_date = JalaliDate(persian_date)
+        g_date = j_date.todate()
+        return g_date.strftime('%Y-%m-%d')
+    except Exception as e:
+        return ''
