@@ -382,14 +382,11 @@ document.querySelectorAll('.MAX').forEach(function(input) {
 
 function adjustButtonPosition() {
     const buttonContainer = document.getElementById('buttonContainer');
-    const viewportHeight = window.visualViewport.height;
-    const windowHeight = window.innerHeight;
-
-    if (viewportHeight < windowHeight) {
+    if (window.visualViewport.height < window.innerHeight) {
         // Keyboard is open
-        const offset = windowHeight - viewportHeight;
-        buttonContainer.style.bottom = `${offset}px`;
-    } else {
+        buttonContainer.style.bottom = `${window.innerHeight - window.visualViewport.height}px`;
+    } 
+    else {
         // Keyboard is closed
         buttonContainer.style.bottom = '0';
     }
@@ -397,11 +394,6 @@ function adjustButtonPosition() {
 
 // Adjust on viewport resize
 window.visualViewport.addEventListener('resize', adjustButtonPosition);
-
-// Initial adjustment
-adjustButtonPosition();
-
-
 
 
 // تاریخ شمسی -----------------------------------------------------------------------------------------------------
