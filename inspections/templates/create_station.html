@@ -10,6 +10,13 @@
             right: 0;
             z-index: 1000;
         }
+        .fixed-buttons {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1000;
+        }
     </style>
 </head>
 
@@ -203,26 +210,49 @@
 
 
 <!-- Fixed bottom options -->
-<div class="mb-3 pt-5" id="buttonContainer">
+<div class="container-fluid">
+    <div class="row text-center d-flex justify-content-center">
+        <div id="nextButton" class="col-5 d-flex glasss justify-content-center btn btn-outline-success mx-2">
+            <div>
+                <span class="text-colorforbuylow fw-bold">ادامه</span>
+            </div>
+        </div>
+        <div id="prevButton" class="col-5 d-flex glasss justify-content-center btn btn-outline-danger mx-2">
+            <div>
+                <span class="text-colorforbuylow">بازگشت</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fixed-buttons">
     <div class="container-fluid">
         <div class="row text-center d-flex justify-content-center">
-            <div id="nextButton" class="col-5 d-flex glasss justify-content-center btn btn-outline-success mx-2">
+            <div id="nextButtonFixed" class="col-5 d-flex glasss justify-content-center btn btn-outline-success mx-2">
                 <div>
-                    <span class="text-colorforbuylow fw-bold"> ادامه </span>
+                    <span class="text-colorforbuylow fw-bold">ادامه</span>
                 </div>
             </div>
-            <div id="prevButton" class="col-5 d-flex glasss justify-content-center btn btn-outline-danger mx-2">
+            <div id="prevButtonFixed" class="col-5 d-flex glasss justify-content-center btn btn-outline-danger mx-2">
                 <div>
-                    <span class="text-colorforbuylow"> بازگشت </span>
+                    <span class="text-colorforbuylow">بازگشت</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
 <!-- SCRIPTS -->
 
 <script>
-    
+    window.addEventListener('resize', function() {
+        var isKeyboardVisible = window.innerHeight < document.documentElement.clientHeight;
+        var fixedButtons = document.querySelector('.fixed-buttons');
+        if (isKeyboardVisible) {
+            fixedButtons.style.display = 'block';
+        } else {
+            fixedButtons.style.display = 'none';
+        }
+    }); 
 </script>
 {% endblock %}
