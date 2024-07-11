@@ -67,6 +67,30 @@
             console.log('ServiceWorker registration failed: ', error);
         });
     }
+    $(document).ready(function() {
+        // Initialize the Persian Datepicker for start_date and end_date fields
+        $("#start_date").persianDatepicker({
+                        observer: true,
+                        format: 'YYYY-MM-DD',
+                        altField: '#start_date',
+                        altFormat: 'YYYY-MM-DD',
+                        onSelect: function(unixDate) {
+                            var date = new persianDate(unixDate).toGregorian();
+                            $('#start_date_gregorian').val(date.format('YYYY-MM-DD'));
+                        }
+                    });
+    
+        $("#end_date").persianDatepicker({
+                observer: true,
+                format: 'YYYY-MM-DD',
+                altField: '#end_date',
+                altFormat: 'YYYY-MM-DD',
+                onSelect: function(unixDate) {
+                    var date = new persianDate(unixDate).toGregorian();
+                    $('#end_date_gregorian').val(date.format('YYYY-MM-DD'));
+                }
+            });
+    });
 </script>
       
 </body>
