@@ -380,26 +380,26 @@ document.querySelectorAll('.MAX').forEach(function(input) {
 
 // fix buttom KEYboard ---------------------------------------------------------------------------------------------
 
-function adjustButtonPosition() {
-    const buttonContainer = document.getElementById('buttonContainer');
-    const viewportHeight = window.visualViewport.height;
-    const windowHeight = window.innerHeight;
+// function adjustButtonPosition() {
+//     const buttonContainer = document.getElementById('buttonContainer');
+//     const viewportHeight = window.visualViewport.height;
+//     const windowHeight = window.innerHeight;
 
-    if (viewportHeight < windowHeight) {
-        // Keyboard is open
-        const offset = windowHeight - viewportHeight;
-        buttonContainer.style.bottom = `${offset}px`;
-    } else {
-        // Keyboard is closed
-        buttonContainer.style.bottom = '0';
-    }
-}
+//     if (viewportHeight < windowHeight) {
+//         // Keyboard is open
+//         const offset = windowHeight - viewportHeight;
+//         buttonContainer.style.bottom = `${offset}px`;
+//     } else {
+//         // Keyboard is closed
+//         buttonContainer.style.bottom = '0';
+//     }
+// }
 
-// Adjust on viewport resize
-window.visualViewport.addEventListener('resize', adjustButtonPosition);
+// // Adjust on viewport resize
+// window.visualViewport.addEventListener('resize', adjustButtonPosition);
 
-// Initial adjustment
-adjustButtonPosition();
+// // Initial adjustment
+// adjustButtonPosition();
 
 
 

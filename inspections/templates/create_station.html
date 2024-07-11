@@ -3,13 +3,20 @@
 
 <head>
     <style>
-        #buttonContainer {
-            position: sticky;
-            bottom: 0;
+        
+        .button-container {
+            transition: all 0.3s ease;
+        }
+        
+        .button-container.keyBoardVisible {
+            position: fixed;
+            bottom: 20px; /* Adjust as needed */
+            left: 50%;
+            transform: translateX(-50%);
             width: 100%;
             z-index: 1000;
-            transition: bottom 0.3s;
         }
+        
     </style>
 </head>
 
@@ -223,6 +230,23 @@
 <!-- SCRIPTS -->
 
 <script>
+    const nextButton = document.getElementById('nextButton');
+const backButton = document.getElementById('backButton');
+const buttonContainer = nextButton.parentElement.parentElement;
+
+let initialHeight = window.innerHeight;
+
+window.addEventListener('resize', function() {
+    let currentHeight = window.innerHeight;
     
+    if (initialHeight > currentHeight) {
+        // Keyboard is open
+        buttonContainer.classList.add('keyBoardVisible');
+    } else {
+        // Keyboard is closed
+        buttonContainer.classList.remove('keyBoardVisible');
+    }
+});
+
 </script>
 {% endblock %}
