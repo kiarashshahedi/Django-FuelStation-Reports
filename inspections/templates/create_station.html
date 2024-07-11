@@ -210,17 +210,17 @@
 
 
 <!-- Fixed bottom options -->
-<div class="fixed-bottom-options mb-3 pt-5" id="buttonContainer">
+<div class="mb-3 pt-5">
     <div class="container-fluid">
-        <div class="row text-center d-flex justify-content-center">
+        <div class="row text-center d-flex justify-content-center button-container">
             <div id="nextButton" class="col-5 d-flex glasss justify-content-center btn btn-outline-success mx-2">
                 <div>
-                    <span class="text-colorforbuylow fw-bold"> ادامه </span>
+                    <span class="text-colorforbuylow fw-bold">ادامه</span>
                 </div>
             </div>
-            <div id="prevButton" class="col-5 d-flex glasss justify-content-center btn btn-outline-danger mx-2">
+            <div id="backButton" class="col-5 d-flex glasss justify-content-center btn btn-outline-danger mx-2">
                 <div>
-                    <span class="text-colorforbuylow"> بازگشت </span>
+                    <span class="text-colorforbuylow">بازگشت</span>
                 </div>
             </div>
         </div>
@@ -231,22 +231,21 @@
 
 <script>
     const nextButton = document.getElementById('nextButton');
-const backButton = document.getElementById('prevButton');
-const buttonContainer = nextButton.parentElement.parentElement;
+        const backButton = document.getElementById('backButton');
+        const buttonContainer = nextButton.parentElement.parentElement;
 
-let initialHeight = window.innerHeight;
+        let initialHeight = window.innerHeight;
 
-window.addEventListener('resize', function() {
-    let currentHeight = window.innerHeight;
-    
-    if (initialHeight > currentHeight) {
-        // Keyboard is open
-        buttonContainer.classList.add('keyBoardVisible');
-    } else {
-        // Keyboard is closed
-        buttonContainer.classList.remove('keyBoardVisible');
-    }
-});
-
+        window.addEventListener('resize', function() {
+            let currentHeight = window.innerHeight;
+            
+            if (initialHeight > currentHeight) {
+                // Keyboard is open
+                buttonContainer.classList.add('keyBoardVisible');
+            } else {
+                // Keyboard is closed
+                buttonContainer.classList.remove('keyBoardVisible');
+            }
+        });
 </script>
 {% endblock %}

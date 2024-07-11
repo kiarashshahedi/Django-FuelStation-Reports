@@ -95,13 +95,13 @@ body {
 .button-container { 
     display: flex; 
     gap: 10px; }
-.fixed-bottom-options { 
+/* .fixed-bottom-options { 
     position: fixed; 
     bottom: 0; 
     left: 0; 
     right: 0; 
     padding: 3px; 
-}
+} */
 .btn { 
     padding: 5px 5px; 
     border: none; 
