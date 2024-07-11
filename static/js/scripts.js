@@ -380,21 +380,28 @@ document.querySelectorAll('.MAX').forEach(function(input) {
 
 // fix buttom KEYboard ---------------------------------------------------------------------------------------------
 
- // Check for mobile device
- const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+function adjustButtonPosition() {
+    const buttonContainer = document.getElementById('buttonContainer');
+    const viewportHeight = window.visualViewport.height;
+    const windowHeight = window.innerHeight;
 
- if (isMobile) {
-     window.addEventListener('resize', function() {
-         const buttonContainer = document.getElementById('buttonContainer');
-         if (window.innerHeight < screen.height) {
-             // Keyboard is open
-             buttonContainer.style.bottom = `${screen.height - window.innerHeight}px`;
-         } else {
-             // Keyboard is closed
-             buttonContainer.style.bottom = '0';
-         }
-     });
- }
+    if (viewportHeight < windowHeight) {
+        // Keyboard is open
+        const offset = windowHeight - viewportHeight;
+        buttonContainer.style.bottom = `${offset}px`;
+    } else {
+        // Keyboard is closed
+        buttonContainer.style.bottom = '0';
+    }
+}
+
+// Adjust on viewport resize
+window.visualViewport.addEventListener('resize', adjustButtonPosition);
+
+// Initial adjustment
+adjustButtonPosition();
+
+
 
 
 // تاریخ شمسی -----------------------------------------------------------------------------------------------------
