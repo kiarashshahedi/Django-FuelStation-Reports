@@ -3,6 +3,11 @@
 
 {% block content %}
 <style>
+    
+    #mySection{
+        background-color: #ffffff;
+    }
+
   table {
         width: 100%;
         border-collapse: collapse;
@@ -42,43 +47,47 @@
 
 
 <div class="page container" id="page2">
-    <p class="text-center text-white">گزارش ها : </p>
+    <p class="text-center text-black">گزارش ها : </p>
     <div class="button-container d-grid">
         <button onclick="showGas()" class="btn glasss btn-gas btn btn-outline-info w-100 mt-1 bi bi-circle-fill text-warning">
-            <span class="ms-1 text-white">نفتگاز</span>
+            <span class="ms-1 text-black">نفتگاز</span>
         </button>
 
         <button onclick="showPetrol()" class="btn glasss btn-petrol btn btn-outline-info w-100 mt-1 bi bi-circle-fill text-danger">
-            <span class="ms-1 text-white">بنزین</span>
+            <span class="ms-1 text-black">بنزین</span>
         </button>
 
         <button onclick="showBoth()" class="btn glasss btn-both btn btn-outline-info w-100 mt-1">
             <span class="bi bi-circle-fill text-warning ms-1"></span>
-            <span class="ms-1 me-1 text-white">هر دو</span>
+            <span class="ms-1 me-1 text-black">هر دو</span>
             <span class="bi bi-circle-fill text-danger me-1"></span>
         </button>
     </div>
 </div>
 
+<section id="mySection">
 <div class="container mt-3">
     <div class="row">
         <div class="col-12 border border-1  showBase">
-            <p class="text-white"><small>نام جایگاه : {{ station.name }}</small></p>
-            <div class="text-white ms-1">
 
-                <span><small>دوره کنترل : </small></span>
-                <span class="mt-1">از  <small dir="ltr">  {{ station.start_date }} </small></span>
-                <span class="mt-1 ms-1">تا <small dir="ltr">  {{ station.end_date }} </small></span>
+            <span class="text-black">نام جایگاه : {{ station.name }}</span>
 
+            <div class="text-black ms-1">
 
-                <p class="text-white me-3 mt-1">- کنترل کننده: {{ station.controller }}<p> 
+                <span>دوره کنترل : </span>
+                <span class="mt-1 ">از  <small class="fs-5" dir="ltr">  {{ station.start_date }} </small></span>
+                <span class="mt-1 ms-1 ">تا <small  class="fs-5" dir="ltr">  {{ station.end_date }} </small></span>
 
-                <span class="text-white me-3">تاریخ بازدید:</span>
+                <br>
+                <span class="text-black me-3 mt-1">کنترل کننده: {{ station.controller }}</span> 
+
+                <br>
+                <span class="text-black me-3">تاریخ بازدید:</span>
                 <span class="mt-1"><small dir="ltr">{{ station.created_at }}</small></span>
                 <br>
                 
 
-                <span class="text-white me-3">ساعت :</span>
+                <span class="text-black me-3">ساعت :</span>
                 <span class="mt-1"><small dir="ltr">{{ station.time }}</small></span>
                  
             </div>
@@ -86,160 +95,170 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row  justify-content-center">
+        <div class="col-12 col-md-9 showAll showBoth showFuel p-1">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="4">
+                            <h6 class="text-start text-danger  showAll showBoth showFuel mt-1">
+                                <small>
+                                    <i class="bi bi-circle-fill"></i>
+                                </small>
+                                <span class="ms-1 text-black"><small> گزارش عملیات بنزین </small></span>
 
-<div class="col-12 col-md-6 showAll showBoth showFuel">
-    <table>
-        <thead>
-            <tr>
-                <th colspan="4">
-                    <h6 class="text-start text-danger  showAll showBoth showFuel mt-1">
-                        <small>
-                            <i class="bi bi-circle-fill"></i>
-                        </small>
-                        <span class="ms-1 text-black"><small> گزارش عملیات بنزین </small></span>
+                            </h6>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="4">
+                            <ul class="text-black text-start mt-3">
+                                <li> ابتدای دوره  : {{ station.gasoline_beginning|strip_zero  }}</li>
+                                <li>  رسیده : {{ station.gasoline_received|strip_zero  }}</li>
 
-                    </h6>
-                </th>
-            </tr>
-            <tr>
-                <th colspan="4">
-                    <ul class="text-black text-start mt-3">
-                        <li> ابتدای دوره  : {{ station.gasoline_beginning|strip_zero  }}</li>
-                        <li>  رسیده : {{ station.gasoline_received|strip_zero  }}</li>
-
-                            {% for tank in gasoline_tanks %}
-                        <li> مخزن {{ forloop.counter }} :  {{ tank.amount|strip_zero  }}</li>
-                            {% endfor %}
-                        <li> جمع مخازن  :  {{ gasoline_end_inventory|strip_zero  }}</li>
-                    </ul>
-                </th> 
-            </tr>
-        </thead> 
-        <tbody>
-            <tr>
-                <th>نازل</th>
-                <th>ابتدا دوره</th>
-                <th>انتها دوره</th>
-                <th>فروش</th>
-            </tr>
-            {% for nozzle in gasoline_nozzles %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ nozzle.start_totalizer|strip_zero }}</td>
-                <td>{{ nozzle.end_totalizer|strip_zero }}</td>
-                <td>{{ nozzle.end_totalizer|subtract:nozzle.start_totalizer|strip_zero }}</td>
-            </tr>
-            {% endfor %}
-            <tr >
-                <td colspan="4" class=" border border-3 border-dark fw-bold " style="background-color: red;" ></br></td>
-            </tr>
-            <tr>
-                <td colspan="3" >کل فروش مکانیکی بنزین</td>
-                <td style="background-color: red;" >{{ gasoline_mechanical_sales|strip_zero }}</td>                
-            </tr>
-            <tr>
-                <td colspan="3" >کل فروش الکترونیکی بنزین طبق گزارش سامانه</td>                
-                <td style="background-color: red;" >{{ station.electronic_gasoline_sales|strip_zero }}</td>               
-            </tr>
-            <tr>
-                <td colspan="3">مقدار سرک / کسری بنزین</td>                
-                <td style="background-color: red;" >{{ gasoline_difference|strip_zero }} ({{ gasoline_status }})</td>
-            </tr>
-            <tr>
-                <td colspan="3" >مقدار کسری غیر مجاز بنزین</td>                
-                <td style="background-color: red;" >{{ qire_mojaz|strip_zero }}</td>
-            </tr>
-            <tr>
-                <td colspan="3">مقدار مغایرت مکانیکی و الکترونیکی بنزین</td>
-                <td style="background-color: red;" >{{ electronic_mechanical_discrepancy|strip_zero }}</td>
-            </tr>
-        </tbody>
-    </table>
+                                    {% for tank in gasoline_tanks %}
+                                <li> مخزن {{ forloop.counter }} :  {{ tank.amount|strip_zero  }}</li>
+                                    {% endfor %}
+                                <li> جمع مخازن  :  {{ gasoline_end_inventory|strip_zero  }}</li>
+                            </ul>
+                        </th> 
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr>
+                        <th>نازل</th>
+                        <th>ابتدا دوره</th>
+                        <th>انتها دوره</th>
+                        <th>فروش</th>
+                    </tr>
+                    {% for nozzle in gasoline_nozzles %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ nozzle.start_totalizer|strip_zero }}</td>
+                        <td>{{ nozzle.end_totalizer|strip_zero }}</td>
+                        <td>{{ nozzle.end_totalizer|subtract:nozzle.start_totalizer|strip_zero }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr >
+                        <td colspan="4" class=" border border-3 border-dark fw-bold " style="background-color: red;" ></br></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" >کل فروش مکانیکی بنزین</td>
+                        <td style="background-color: red;" >{{ gasoline_mechanical_sales|strip_zero }}</td>                
+                    </tr>
+                    <tr>
+                        <td colspan="3" >کل فروش الکترونیکی بنزین طبق گزارش سامانه</td>                
+                        <td style="background-color: red;" >{{ station.electronic_gasoline_sales|strip_zero }}</td>               
+                    </tr>
+                    <tr>
+                        <td colspan="3">مقدار سرک / کسری بنزین</td>                
+                        <td style="background-color: red;" >{{ gasoline_difference|strip_zero }} ({{ gasoline_status }})</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" >مقدار کسری غیر مجاز بنزین</td>                
+                        <td style="background-color: red;" >{{ qire_mojaz|strip_zero }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">مقدار مغایرت مکانیکی و الکترونیکی بنزین</td>
+                        <td style="background-color: red;" >{{ electronic_mechanical_discrepancy|strip_zero }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-
-<div class="col-12 col-md-6 showAll showBoth showGaz">
-    <table>
-        <thead>
-            <tr>
-                <th colspan="4">
-                    <h6 class="text-start text-warning  showAll showBoth showGaz mt-1">
-                        <small>
-                            <i class="bi bi-circle-fill"></i>
-                        </small>
-                        <span class=" text-black ms-1"><small> گزارش عملیات نفتگاز </small></span>
-                    </h6> 
-                </th>
-            </tr>
-            <tr>
-                <th colspan="4" >
-                    <ul class="text-black text-start mt-3">
-                        <li> ابتدای دوره  : {{ station.gas_beginning|strip_zero  }}</li>
-                        <li>  رسیده : {{ station.gas_received|strip_zero  }}</li>
-                            {% for tank in gas_tanks %}
-                        <li> مخزن {{ forloop.counter }} :  {{ tank.amount|strip_zero  }}</li>
-                            {% endfor %}
-                        <li> جمع مخازن  :  {{ gas_end_inventory|strip_zero  }}</li>
-                    </ul>
-                </th>     
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th>نازل</th>
-                <th>ابتدا دوره</th>
-                <th>انتها دوره</th>
-                <th>فروش</th>
-            </tr>
-            {% for nozzle in gas_nozzles %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ nozzle.start_totalizer|strip_zero }}</td>
-                <td>{{ nozzle.end_totalizer|strip_zero }}</td>
-                <td>{{ nozzle.end_totalizer|subtract:nozzle.start_totalizer|strip_zero }}</td>
-            </tr>
-            {% endfor %}
-            <hr>
-            <tr >
-                <td colspan="4" class=" border border-3 border-dark fw-bold " style="background-color: yellow;"></br></td>
-            </tr>
-            <tr>
-                <td colspan="3" >کل فروش مکانیکی نفتگاز</td>
-                <td style="background-color: yellow;">{{ gas_mechanical_sales|strip_zero }}</td>           
-            </tr>
-            <tr>    
-                <td colspan="3">کل فروش الکترونیکی نفتگاز طبق گزارش سامانه</td>
-                <td style="background-color: yellow;">{{ station.electronic_gas_sales|strip_zero }}</td>
-            </tr>
-            <tr>
-                <td colspan="3">مقدار سرک / کسری نفتگاز</td>
-                <td style="background-color: yellow;">{{ gas_difference|strip_zero }} ({{ gas_status }})</td>
-            </tr>
-            <tr>
-                <td colspan="3" > - </td>
-                <td style="background-color: yellow;"> - </td>
-            </tr>
-            <tr>           
-                <td colspan="3" >مقدار مغایرت مکانیکی و الکترونیکی نفتگاز</td>
-                <td  style="background-color: yellow;"> {{ electronic_mechanical_discrepancy_gas|strip_zero }} </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <div class="row  justify-content-center">
+        <div class="col-12 col-md-9 showAll showBoth showGaz p-1">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="4">
+                            <h6 class="text-start text-warning  showAll showBoth showGaz mt-1">
+                                <small>
+                                    <i class="bi bi-circle-fill"></i>
+                                </small>
+                                <span class=" text-black ms-1"><small> گزارش عملیات نفتگاز </small></span>
+                            </h6> 
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="4" >
+                            <ul class="text-black text-start mt-3">
+                                <li> ابتدای دوره  : {{ station.gas_beginning|strip_zero  }}</li>
+                                <li>  رسیده : {{ station.gas_received|strip_zero  }}</li>
+                                    {% for tank in gas_tanks %}
+                                <li> مخزن {{ forloop.counter }} :  {{ tank.amount|strip_zero  }}</li>
+                                    {% endfor %}
+                                <li> جمع مخازن  :  {{ gas_end_inventory|strip_zero  }}</li>
+                            </ul>
+                        </th>     
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>نازل</th>
+                        <th>ابتدا دوره</th>
+                        <th>انتها دوره</th>
+                        <th>فروش</th>
+                    </tr>
+                    {% for nozzle in gas_nozzles %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ nozzle.start_totalizer|strip_zero }}</td>
+                        <td>{{ nozzle.end_totalizer|strip_zero }}</td>
+                        <td>{{ nozzle.end_totalizer|subtract:nozzle.start_totalizer|strip_zero }}</td>
+                    </tr>
+                    {% endfor %}
+                    <hr>
+                    <tr >
+                        <td colspan="4" class=" border border-3 border-dark fw-bold " style="background-color: yellow;"></br></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" >کل فروش مکانیکی نفتگاز</td>
+                        <td style="background-color: yellow;">{{ gas_mechanical_sales|strip_zero }}</td>           
+                    </tr>
+                    <tr>    
+                        <td colspan="3">کل فروش الکترونیکی نفتگاز طبق گزارش سامانه</td>
+                        <td style="background-color: yellow;">{{ station.electronic_gas_sales|strip_zero }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">مقدار سرک / کسری نفتگاز</td>
+                        <td style="background-color: yellow;">{{ gas_difference|strip_zero }} ({{ gas_status }})</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" > - </td>
+                        <td style="background-color: yellow;"> - </td>
+                    </tr>
+                    <tr>           
+                        <td colspan="3" >مقدار مغایرت مکانیکی و الکترونیکی نفتگاز</td>
+                        <td  style="background-color: yellow;"> {{ electronic_mechanical_discrepancy_gas|strip_zero }} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <div class="border border-1 p-1 showBase">
     <div class="d-flex justify-content-between mt-5 mb-5">
         <div class="">
-            <p class="text-white ">تاریخ گزارش : .........</p>
+            <p class="text-black ">تاریخ گزارش : .........</p>
         </div>
     </div>
     <div class="">
-        <p class="text-white text-center">امضاء :</p>
+        <p class="text-black text-center">امضاء :</p>
     </div>
 </div>
+</section>
 
 <a href="{% url 'generate_pdf' station.id %}" class="showBase btn btn-success py-3 mt-1 mb-3 fw-bold mt-3">Download PDF</a>
 
+<button id="downloadPDF" class="btn btn-primary mt-3">دانلود PDF</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         let fuelType = localStorage.getItem('fuelType');
@@ -335,5 +354,47 @@
             }
         });
     }
+    // MAKE PDF FOR PAGE
+    document.getElementById('downloadPDF').addEventListener('click', function() {
+        const { jsPDF } = window.jspdf;
+        const section = document.getElementById('mySection');
+
+        // Store the original text color
+        const originalColor = section.style.color;
+
+        // Change the text color to black
+        section.style.color = '#000000';
+
+        // Capture the specified section as a canvas
+        html2canvas(section, {
+            backgroundColor: '#ffffff', // Set the background color to white
+        }).then(function(canvas) {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 210; // A4 width in mm
+            const pageHeight = 295; // A4 height in mm
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            // Add the image to the PDF
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            // Add additional pages if necessary
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            // Save the PDF
+            pdf.save('report.pdf');
+
+            // Restore the original text color
+            section.style.color = originalColor;
+        });
+    });
 </script>
 {% endblock %}
