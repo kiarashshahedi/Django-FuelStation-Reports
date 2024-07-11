@@ -96,7 +96,7 @@ body {
     display: flex; 
     gap: 10px; }
 .fixed-bottom-options { 
-    position: fixed; 
+    position: sticky; 
     bottom: 0; 
     left: 0; 
     right: 0; 
