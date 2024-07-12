@@ -65,7 +65,7 @@
     </div>
 </div>
 
-<section id="mySection">
+<section id="mySection" class="justify-content-center">
 <div class="container mt-1">
     <div class="row">
         <div class="col-12 showBase text-start" style="font-size:15px;">
@@ -376,7 +376,7 @@ document.getElementById('downloadPDF').addEventListener('click', function() {
     // Capture the specified section as a canvas
     html2canvas(section, {
         backgroundColor: '#ffffff', // Set the background color to white
-        scale: 3 // Increase the scale for better quality
+        scale: 5 // Increase the scale for better quality
     }).then(function(canvas) {
         const imgData = canvas.toDataURL('image/png', 1.0); // Use high-quality PNG
         const pdf = new jsPDF('p', 'mm', 'a4');
