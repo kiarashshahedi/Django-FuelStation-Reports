@@ -363,29 +363,30 @@
     document.getElementById('downloadPDF').addEventListener('click', function() {
         const { jsPDF } = window.jspdf;
         const section = document.getElementById('mySection');
-
+    
         // Store the original text color
         const originalColor = section.style.color;
-
+    
         // Change the text color to black
         section.style.color = '#000000';
-
-        // Capture the specified section as a canvas
+    
+        // Capture the specified section as a canvas with a higher scale factor for better resolution
         html2canvas(section, {
             backgroundColor: '#ffffff', // Set the background color to white
+            scale: 2, // Increase scale for higher resolution
         }).then(function(canvas) {
-            const imgData = canvas.toDataURL('image/png');
+            const imgData = canvas.toDataURL('image/png', 1.0); // Set the image quality to maximum
             const pdf = new jsPDF('p', 'mm', 'a4');
             const imgWidth = 210; // A4 width in mm
             const pageHeight = 295; // A4 height in mm
             const imgHeight = canvas.height * imgWidth / canvas.width;
             let heightLeft = imgHeight;
             let position = 0;
-
+    
             // Add the image to the PDF
             pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
-
+    
             // Add additional pages if necessary
             while (heightLeft >= 0) {
                 position = heightLeft - imgHeight;
@@ -393,14 +394,14 @@
                 pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
-
+    
             // Save the PDF
             pdf.save('report.pdf');
-
+    
             // Restore the original text color
             section.style.color = originalColor;
         });
     });
-
+    
 </script>
 {% endblock %}
