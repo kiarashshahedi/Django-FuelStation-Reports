@@ -65,13 +65,15 @@
     </div>
 </div>
 
-<section id="mySection" class="justify-content-center p-3">
+<section id="mySection" class="justify-content-center">
 <div class="container mt-1">
     <div class="row">
         <div class="col-12 showBase text-start" style="font-size:15px;">
             <ul class="mt-1">
                 <li>
                     <span class="text-black "> نام جایگاه : {{ station.name }}</span>
+                    <span class="text-black mt-1 ms-4">کنترل کننده: {{ station.controller }}</span> 
+
                 </li>
 
                 <div class="text-black">
@@ -79,10 +81,6 @@
                         <span>دوره کنترل : </span>
                         <span class="mt-1 ">از  <small class="" dir="ltr">  {{ station.start_date }} </small></span>
                         <span class="mt-1 ms-1 ">تا <small  class="" dir="ltr">  {{ station.end_date }} </small></span>
-                    </li>
-
-                    <li>
-                        <span class="text-black me-3 mt-1">کنترل کننده: {{ station.controller }}</span> 
                     </li>
 
                     <li>
