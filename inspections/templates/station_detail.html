@@ -362,42 +362,47 @@
         });
     }
     // MAKE PDF FOR PAGE
-    // MAKE PDF FOR PAGE
-document.getElementById('downloadPDF').addEventListener('click', function() {
-    const { jsPDF } = window.jspdf;
-    const section = document.getElementById('mySection');
+    document.getElementById('downloadPDF').addEventListener('click', function() {
+        const { jsPDF } = window.jspdf;
+        const section = document.getElementById('mySection');
 
-    // Store the original text color
-    const originalColor = section.style.color;
+        // Store the original text color
+        const originalColor = section.style.color;
 
-    // Change the text color to black
-    section.style.color = '#000000';
+        // Change the text color to black
+        section.style.color = '#000000';
 
-    // Capture the specified section as a canvas
-    html2canvas(section, {
-        backgroundColor: '#ffffff', // Set the background color to white
-        scale: 5 // Increase the scale for better quality
-    }).then(function(canvas) {
-        const imgData = canvas.toDataURL('image/png', 1.0); // Use high-quality PNG
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const imgWidth = 210; // A4 width in mm
-        const pageHeight = 295; // A4 height in mm
+        // Capture the specified section as a canvas
+        html2canvas(section, {
+            backgroundColor: '#ffffff', // Set the background color to white
+        }).then(function(canvas) {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 210; // A4 width in mm
+            const pageHeight = 295; // A4 height in mm
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
 
-        // Calculate the scale factor to fit the content within A4 dimensions
-        const scaleFactor = Math.min(imgWidth / canvas.width, pageHeight / canvas.height);
-        const scaledWidth = imgWidth * 0.60; // Slightly reduce width to increase quality
-        const scaledHeight = (canvas.height * scaleFactor) * 0.95; // Maintain aspect ratio and slightly reduce height
+            // Add the image to the PDF
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
 
-        // Add the image to the PDF, scaled to fit the full width of A4
-        pdf.addImage(imgData, 'PNG', 0, 0, scaledWidth, scaledHeight, undefined, 'FAST');
+            // Add additional pages if necessary
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
 
-        // Save the PDF
-        pdf.save('report.pdf');
+            // Save the PDF
+            pdf.save('report.pdf');
 
-        // Restore the original text color
-        section.style.color = originalColor;
+            // Restore the original text color
+            section.style.color = originalColor;
+        });
     });
-});
 
 </script>
 {% endblock %}
