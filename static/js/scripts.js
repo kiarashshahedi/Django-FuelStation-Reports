@@ -180,8 +180,8 @@ document.getElementById('gasoline_tanks').addEventListener('change', function() 
     for (var i = 1; i <= tankCount; i++) {
         container.innerHTML += `
             <div class="form-group">
-                <input type="number" step="0.01" id="gasoline_tank_${i}" name="gasoline_tank_${i}" placeholder="موجوی مخزن بنزین ${i} " required>
-                <label for="gasoline_tank_${i}">موجوی مخزن بنزین  ${i} </label>
+                <input type="number" step="0.01" id="gasoline_tank_${i}" name="gasoline_tank_${i}" placeholder="موجودی مخزن بنزین ${i} " required>
+                <label for="gasoline_tank_${i}">موجودی مخزن بنزین  ${i} </label>
             </div>
         `;
     }
@@ -194,8 +194,8 @@ document.getElementById('gasoline_tanks').addEventListener('change', function() 
         for (var i = 1; i <= tankCount; i++) {
             container.innerHTML += `
                 <div class="form-group">
-                    <input type="number" step="0.01" id="gas_tank_${i}" name="gas_tank_${i}" placeholder="موجوی مخزن نفتگاز ${i}" required>
-                    <label for="gas_tank_${i}">موجوی مخزن نفتگاز ${i}</label>
+                    <input type="number" step="0.01" id="gas_tank_${i}" name="gas_tank_${i}" placeholder="موجودی مخزن نفتگاز ${i}" required>
+                    <label for="gas_tank_${i}">موجودی مخزن نفتگاز ${i}</label>
                 </div>
             `;
         }
