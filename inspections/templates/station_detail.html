@@ -97,7 +97,7 @@
 
 <div class="container">
     <div class="row  justify-content-center">
-        <div class="col-12 col-md-9 showAll showBoth showFuel p-1">
+        <div class="col-12 col-md-6 showAll showBoth showFuel">
             <table>
                 <thead>
                     <tr>
@@ -171,7 +171,7 @@
 
 <div class="container">
     <div class="row  justify-content-center">
-        <div class="col-12 col-md-9 showAll showBoth showGaz p-1">
+        <div class="col-12 col-md-6 showAll showBoth showGaz">
             <table>
                 <thead>
                     <tr>
@@ -353,37 +353,44 @@
             }
         });
     }
+    // MAKE PDF FOR PAGE
     document.getElementById('downloadPDF').addEventListener('click', function() {
         const { jsPDF } = window.jspdf;
         const section = document.getElementById('mySection');
-    
+
         // Store the original text color
         const originalColor = section.style.color;
-    
+
         // Change the text color to black
         section.style.color = '#000000';
-    
+
         // Capture the specified section as a canvas
         html2canvas(section, {
             backgroundColor: '#ffffff', // Set the background color to white
-            scale: 2 // Increase the scale for better quality
         }).then(function(canvas) {
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4');
             const imgWidth = 210; // A4 width in mm
             const pageHeight = 295; // A4 height in mm
-    
-            // Calculate the scale factor to fit the content within A4 dimensions
-            const scaleFactor = Math.min(imgWidth / canvas.width, pageHeight / canvas.height);
-            const scaledWidth = canvas.width * scaleFactor;
-            const scaledHeight = canvas.height * scaleFactor;
-    
-            // Add the image to the PDF, scaled to fit
-            pdf.addImage(imgData, 'PNG', 0, 0, scaledWidth, scaledHeight);
-    
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            // Add the image to the PDF
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            // Add additional pages if necessary
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
             // Save the PDF
             pdf.save('report.pdf');
-    
+
             // Restore the original text color
             section.style.color = originalColor;
         });
